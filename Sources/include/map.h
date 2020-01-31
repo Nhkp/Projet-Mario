@@ -18,7 +18,7 @@ typedef struct {
 } map_object_t;
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
-extern map_object_t tab[3];
+extern map_object_t tab[5];
 
 void map_new(int width, int height);
 void* map_allocate(int width, int height);

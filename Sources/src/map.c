@@ -5,9 +5,8 @@
 #include "constants.h"
 
 
-map_object_t tab[3];
+map_object_t tab[5];
 int map[MAP_WIDTH][MAP_HEIGHT];
-//int **map = NULL;
 
 void* map_allocate(int width, int height){
     /**map = malloc(width * sizeof(int*));
@@ -33,21 +32,20 @@ int map_get(int x, int y){
 }
 
 void map_object_add(const char* path, int nb_sprites, int type, int num){
-    //static int x;
-
     map_object_t tmp;
     tmp.tex = IMG_LoadTexture(ren, path);
     tmp.nb_sprites = nb_sprites;
     tmp.type = type;
 
     tab[num] = tmp;
-    //x++;
 }
 
 void map_new(int width, int height){
     map_allocate(width, height);
     map_object_add("../images/wall.png", 1, 0, 1);
     map_object_add("../images/ground.png", 1, 0, 2);
+    map_object_add("../images/flower.png", 1, 0, 3);
+    map_object_add("../images/flower2.png", 1, 0, 4);
 
 
     for (int i = 0; i< height; i++){
@@ -56,6 +54,9 @@ void map_new(int width, int height){
     for (int i = 0; i< width; i++){
         map_set(2, i, 11);
     }
+
+    map_set(3, 11, 10);
+    map_set(4, 12, 10);
 
 }
 
