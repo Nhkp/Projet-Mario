@@ -1,0 +1,13 @@
+
+#ifndef CONSTANTS_IS_DEF
+#define CONSTANTS_IS_DEF
+
+
+#define WIN_WIDTH   1280
+#define WIN_HEIGHT  754
+
+#define MARIO_INITIAL_POSX 360
+#define MARIO_INITIAL_POSY 626
+
+
+#endif
