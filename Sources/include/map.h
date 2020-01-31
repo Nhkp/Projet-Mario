@@ -1,6 +1,9 @@
 #ifndef MAP_IS_DEF
 #define MAP_IS_DEF
 
+#include <SDL.h>
+#include "constants.h"
+
 enum {
 MAP_OBJECT_SOLID,
 MAP_OBJECT_SEMI_SOLID,
@@ -10,17 +13,20 @@ MAP_OBJECT_NUM
 
 typedef struct {
    int type;
-   const char* path;
+   SDL_Texture *tex;
    int nb_sprites;
 } map_object_t;
 
-extern int **map;
+extern int map[MAP_WIDTH][MAP_HEIGHT];
+extern map_object_t tab[3];
 
-void map_new(unsigned width, unsigned height);
-void map_allocate(int width, int height);
+void map_new(int width, int height);
+void* map_allocate(int width, int height);
 void map_set(int map_object, int x, int y);
 int map_get(int x, int y);
-void map_object_add(const char* path, int nb_sprites, int type);
+void map_object_add(const char* path, int nb_sprites, int type, int num);
+
+void map_display(int width, int height);
 
 
 #endif

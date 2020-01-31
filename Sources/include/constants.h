@@ -6,8 +6,11 @@
 #define WIN_WIDTH   1280
 #define WIN_HEIGHT  754
 
+#define MAP_WIDTH 20
+#define MAP_HEIGHT 12
+
 #define MARIO_INITIAL_POSX 360
-#define MARIO_INITIAL_POSY 626
+#define MARIO_INITIAL_POSY 000
 
 
 #endif

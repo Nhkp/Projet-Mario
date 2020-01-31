@@ -128,6 +128,7 @@ int main(int argc, char **argv)
 
     int up = keystates[SDL_SCANCODE_UP], down = keystates[SDL_SCANCODE_DOWN], space = keystates[SDL_SCANCODE_SPACE];
     int left = keystates[SDL_SCANCODE_LEFT], right = keystates[SDL_SCANCODE_RIGHT];
+    
     animation_one_step(space, up, down, left, right);
 
     // Refresh screen

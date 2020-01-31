@@ -4,6 +4,7 @@
 #include "object.h"
 #include "list.h"
 #include "missile.h"
+#include "map.h"
 
 static LIST_HEAD(obj_list); //Initialisation de la file d'objets
 
@@ -37,6 +38,8 @@ static void graphics_render_object(dynamic_object_t *obj)
 
         SDL_RenderCopyEx(ren, obj->sprite->tex, NULL, &dst, 0, NULL, obj->direction);
     }
+
+    map_display(MAP_WIDTH,MAP_HEIGHT);
 }
 
 //Ajout d'objets en bout de file
@@ -58,6 +61,7 @@ void animation_init(void)
 
     object_object_init(&mario, &mario_sprite, OBJECT_TYPE_MARIO, MARIO_INITIAL_POSX, MARIO_INITIAL_POSY);
     animation_mobile_object_add(&mario);
+    map_new(MAP_WIDTH,MAP_HEIGHT);
 
     object_init();
 }
