@@ -31,6 +31,7 @@ typedef struct _dyn_obj {
     int i;
     sprite_t *sprite;
     struct list_head chain;
+    int moved;
     timer_id_t timer;
 
 } dynamic_object_t;

@@ -22,8 +22,10 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
   if(left)
   {
+    obj->moved = 1;
     obj->direction = 1;
-    obj->x -= obj->xs;
+    if (obj->x > 200)
+      obj->x -= obj->xs;
 
     if (obj->anim_next_step < obj->sprite->nb_step-1)
       obj->anim_next_step++;
@@ -33,8 +35,10 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
   if(right)
   {
+    obj->moved = 1;
     obj->direction = 0;
-    obj->x += obj->xs;
+    if (obj->x < 900)
+      obj->x += obj->xs;
 
     if(obj->anim_next_step < obj->sprite->nb_step-1)
       obj->anim_next_step++;

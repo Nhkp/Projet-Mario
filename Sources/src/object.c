@@ -42,5 +42,6 @@ void object_object_init (dynamic_object_t *obj, sprite_t *sp, int type, int x, i
     obj->state = 0;
     obj->xs = 0;
     obj->ys = 0;
+    obj->moved = 0;
     //obj->timer = timer_init();
 }
