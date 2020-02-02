@@ -57,21 +57,54 @@ void map_new(int width, int height){
 
     map_set(3, 11, 10);
     map_set(4, 12, 10);
+    
+    map_set(1, 10, 9);
 
 }
 
-void map_display(int width, int height){
-    for (int i = 0; i< width; i++){
-        for (int j = 0; j< height; j++){
+void map_display(){
+    for (int i = 0; i< MAP_WIDTH; i++){
+        for (int j = 0; j< MAP_HEIGHT; j++){
             if (map_get(i,j))
             {
-                SDL_Rect dst;
-                dst.x = i*64;
-                dst.y = j*64;
-                dst.w = 64;
-                dst.h = 64;
-                SDL_RenderCopyEx(ren, tab[map_get(i,j)].tex, NULL, &dst,0,0,0);
+                tab[map_get(i,j)].dst.x = i*64;
+                tab[map_get(i,j)].dst.y = j*64;
+                tab[map_get(i,j)].dst.w = 64;
+                tab[map_get(i,j)].dst.h = 64;
+
+                SDL_RenderCopyEx(ren, tab[map_get(i,j)].tex, NULL, &tab[map_get(i,j)].dst,0,0,0);
             }
         }
     }
 }
+
+/*void edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
+    int x = MAP_WIDTH/2;
+    int y = MAP_HEIGHT/2;
+    int i = 0;
+    while (!q)
+    {
+        while(!ok)
+        {
+            map_set(0, x, y);
+            if(up){
+                y--;
+            }
+            if(down){
+                y++;
+            }
+            if(left){
+                x--;
+            }
+            if(right){
+                x++;
+            }
+            if(shift){
+                i++;
+                if (i<5)
+                    i=0;
+            }
+            map_set(i, x, y);
+    }
+}*/
+

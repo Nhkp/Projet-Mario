@@ -15,6 +15,7 @@ typedef struct {
    int type;
    SDL_Texture *tex;
    int nb_sprites;
+   SDL_Rect dst;
 } map_object_t;
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
@@ -26,7 +27,7 @@ void map_set(int map_object, int x, int y);
 int map_get(int x, int y);
 void map_object_add(const char* path, int nb_sprites, int type, int num);
 
-void map_display(int width, int height);
+void map_display();
 
 
 #endif

@@ -39,7 +39,7 @@ static void graphics_render_object(dynamic_object_t *obj)
         SDL_RenderCopyEx(ren, obj->sprite->tex, NULL, &dst, 0, NULL, obj->direction);
     }
 
-    map_display(MAP_WIDTH,MAP_HEIGHT);
+    map_display();
 }
 
 //Ajout d'objets en bout de file

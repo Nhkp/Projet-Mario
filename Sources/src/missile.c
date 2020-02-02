@@ -6,6 +6,7 @@
 #include "sprite.h"
 #include "explosion.h"
 #include "mario.h"
+#include "collision.h"
 
 int x_shot_speed = 10;
 
@@ -22,27 +23,45 @@ void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
 
 void animation_missile_one_step (dynamic_object_t *obj)
 {
+    int test = map_get((obj->x-x_shot_speed)/64,(obj->y)/64);
     //Le missile avance
-    if(obj->direction)
+    if(obj->direction && !test)
         obj->x -= x_shot_speed;
-    else
-        obj->x += x_shot_speed;
-    
+    else if (obj->direction)
+    {
+        switch(tab[test].type)
+        {
+            case 0:
+                obj->x -= x_shot_speed;
+                add_explosion(obj);
+                break;
 
+            default:
+                break;
+        }
+    }
+
+    int test2 = map_get((obj->x+x_shot_speed)/64,(obj->y)/64);
+    //Le missile avance
+    if(!obj->direction && !test2)
+        obj->x += x_shot_speed;
+    else if (!obj->direction)
+    {
+        switch(tab[test2].type)
+        {
+            case 0:
+                //if (isInside(obj, tab[test2]))
+                    obj->x += x_shot_speed;
+                    add_explosion(obj);
+                break;
+
+            default:
+                break;
+        }
+    }
 
     if (obj-> x > WIN_WIDTH - 64 || obj-> x < 1)//détection du bord de la fenêtre 
     {
-        dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
-        if (tmp == NULL) // Si l'allocation a échoué
-        {
-            exit(0); // On arrête immédiatement le programme
-        }
-
-        object_object_init(tmp, &explosion_sprite, OBJECT_TYPE_EXPLOSION, obj->x, obj->y);
-        animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste
-        printf("        ajout explo : %p\n",tmp);
-        
-        
-        obj->state = OBJECT_STATE_DESTROYED; //Le missile passe à l'état détruit
+        add_explosion(obj);
     }
 }
