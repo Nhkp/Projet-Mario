@@ -3,24 +3,58 @@
 #include "constants.h"
 #include "missile.h"
 #include "animation.h"
+#include "map.h"
+#include "explosion.h"
 
 dynamic_object_t mario;
 
+  int tmp = -1;
 
 void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, int right, int space)
 {
   obj->xs = 4;
+  obj->ys = 8;
   
-  if (up && obj->y > MARIO_INITIAL_POSY-128) 
+  if (up && !obj->state) 
   {
-    obj->y -= 16; 
+    obj->y -= 24;
+
+    if (obj->y < tmp - 128)
+    obj->state = OBJECT_STATE_IN_AIR;
   }
 
   // gravité
-  if (!up && obj->y < MARIO_INITIAL_POSY)
-    obj->y += 8;
+  int test = map_get(obj->x / 64, (obj->y / 64)+2);
+  printf("%d", test);
+  if (!test)
+  {
+    obj->y += obj->ys;
+  }
+  else
+  {
+    switch (tab[test].type)
+    {
+    case 0:
+      tmp = obj->y;
+      obj->state = OBJECT_STATE_NORMAL;
+      break;
+    case 1:
+      tmp = obj->y;
+      obj->state = OBJECT_STATE_NORMAL;
+      break;
+    case 2:
+      obj->y+= obj->ys;
+    case 3:
+      obj->y += obj->ys;
+    case 4:
+      obj->y += obj->ys;
+    default:
+      break;
+    }
+  }
 
-  if(left)
+  int test1 = map_get((obj->x / 64), obj->y / 64);
+  if(left && !test1)
   {
     obj->direction = 1;
     obj->x -= obj->xs;
@@ -30,8 +64,17 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     else
       obj->anim_next_step = 0;
   }
+  else if (left)
+  {
+    if (obj->anim_next_step < obj->sprite->nb_step-1)
+      obj->anim_next_step++;
+    else
+      obj->anim_next_step = 0; 
+  }
+  
 
-  if(right)
+  int test2 = map_get((obj->x / 64)+1, obj->y / 64);
+  if(right && !test2)
   {
     obj->direction = 0;
     obj->x += obj->xs;
@@ -40,6 +83,13 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
       obj->anim_next_step++;
     else
       obj->anim_next_step = 0;
+  }
+  else if (right)
+  {
+    if (obj->anim_next_step < obj->sprite->nb_step-1)
+      obj->anim_next_step++;
+    else
+      obj->anim_next_step = 0; 
   }
 }
   

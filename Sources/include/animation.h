@@ -3,7 +3,7 @@
 
 void animation_init (void);
 
-void animation_one_step (int space, int up,int down, int left, int right);
+void animation_one_step (int space, int up,int down, int left, int right,int ok, int shift, int q, int e);
 
 void animation_render_objects (void);
 

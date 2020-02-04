@@ -66,44 +66,50 @@ void animation_init(void)
     object_init();
 }
 
-void animation_one_step (int space, int up, int down, int left, int right)
+int E = 0;
+void animation_one_step (int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
 {
     //Interaction utilisateur/oiseau
-    animation_mario_moves (&mario, up, down, left, right, space);
+    /*if (e || E)
+        E = edit_mode(up, down, left, right, ok, shift, q);
 
-    //Bidouillage artisanale pour la fréquence de tir de l'oiseau
-    if(space && mario.state != OBJECT_STATE_DEAD)
-        k++;
-    
-    if(k%6 == 0)
-    {
-        dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
-        if (tmp == NULL) // Si l'allocation a échoué
-        {
-            exit(0); // On arrête immédiatement le programme
-        }
-
-        if(mario.direction)
-            animation_missile_add(tmp, mario.x-32, mario.y, mario.direction);
-        else
-            animation_missile_add(tmp, mario.x+32, mario.y, mario.direction);
+    else
+    {*/
+        animation_mario_moves (&mario, up, down, left, right, space);
+        //Bidouillage artisanale pour la fréquence de tir de l'oiseau
+        if(space && mario.state != OBJECT_STATE_DEAD)
+            k++;
         
-        printf("ajout list : %p\n", tmp);
-        k++;
-    }
-
-    printf("Liste d'objets : ");
-    for_all_objects (obj)
-    {
-    
-        printf("%p | ", obj);
-        animate_func_t func = object_class[obj->type].animate_func;
-        if (func != NULL)
+        if(k%6 == 0)
         {
-            func (obj);
+            dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
+            if (tmp == NULL) // Si l'allocation a échoué
+            {
+                exit(0); // On arrête immédiatement le programme
+            }
+
+            if(mario.direction)
+                animation_missile_add(tmp, mario.x-32, mario.y, mario.direction);
+            else
+                animation_missile_add(tmp, mario.x+32, mario.y, mario.direction);
+            
+            printf("ajout list : %p\n", tmp);
+            k++;
         }
-    }
-    printf("\n");
+
+        printf("Liste d'objets : ");
+        for_all_objects (obj)
+        {
+        
+            printf("%p | ", obj);
+            animate_func_t func = object_class[obj->type].animate_func;
+            if (func != NULL)
+            {
+                func (obj);
+            }
+        }
+        printf("\n");
+    //}
 }
 
 void animation_render_objects(void)
