@@ -1,3 +1,4 @@
+
 #include <SDL_image.h>
 
 #include "graphics.h"
@@ -152,14 +153,14 @@ for(int i=0; i<3; i++){
 }
 
 void move_trees(int sens){
-  graphics_render_scrolling_trees(tree[2], 4, sens);
+  graphics_render_scrolling_trees(tree[2], 1, sens);
   graphics_render_scrolling_trees(tree[1], 2, sens);
-  graphics_render_scrolling_trees(tree[0], 1, sens);
+  graphics_render_scrolling_trees(tree[0], 4, sens);
 }
 void trees(){
-  graphics_render_trees(tree[2], 4);
+  graphics_render_trees(tree[2], 1);
   graphics_render_trees(tree[1], 2);
-  graphics_render_trees(tree[0], 1);
+  graphics_render_trees(tree[0], 4);
 }
 
 void scrolling_gestion(){

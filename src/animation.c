@@ -66,13 +66,12 @@ void animation_init(void)
     object_init();
 }
 
-//int E = 0;
+int E = 0;
 void animation_one_step (int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
 {
     //Interaction utilisateur/oiseau
     /*if (e || E)
         E = edit_mode(up, down, left, right, ok, shift, q);
-
     else
     {*/
         animation_mario_moves (&mario, up, down, left, right, space);
@@ -81,17 +80,6 @@ void animation_one_step (int space, int up, int down, int left, int right, int o
             k++;
         
         if(k%6 == 0)
-    //Interaction utilisateur/mario
-    animation_mario_moves (&mario, up, down, left, right, space);
-
-    //Bidouillage artisanale pour la fréquence de tir de l'oiseau
-    if(space && mario.state != OBJECT_STATE_DEAD)
-        k++;
-    
-    if(k%6 == 0)
-    {
-        dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
-        if (tmp == NULL) // Si l'allocation a échoué
         {
             dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
             if (tmp == NULL) // Si l'allocation a échoué
@@ -110,22 +98,6 @@ void animation_one_step (int space, int up, int down, int left, int right, int o
 
         printf("Liste d'objets : ");
         for_all_objects (obj)
-        if(mario.direction)
-            animation_missile_add(tmp, mario.x-32, mario.y, mario.direction);
-        else
-            animation_missile_add(tmp, mario.x+32, mario.y, mario.direction);
-        
-        printf("ajout list : %p\n", tmp);
-        k++;
-    }
-
-    //printf("Liste d'objets : ");
-    for_all_objects (obj)
-    {
-    
-       // printf("%p | ", obj);
-        animate_func_t func = object_class[obj->type].animate_func;
-        if (func != NULL)
         {
         
             printf("%p | ", obj);
@@ -137,8 +109,6 @@ void animation_one_step (int space, int up, int down, int left, int right, int o
         }
         printf("\n");
     //}
-    }
-    //printf("\n");
 }
 
 void animation_render_objects(void)
@@ -171,12 +141,10 @@ void animation_clean (void)
 {
     //obj->timer = SDL_AddTimer(delay, timer_set(delay, ));
 }
-
 void animation_timer_cancel(dynamic_object_t *obj)
 {
     timer_cancel(obj->timer);
 }
-
 void animation_timer_expired(void *arg1, void *arg2)
 {   
    void (*p)  (void *) = arg1;

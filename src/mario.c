@@ -8,8 +8,7 @@
 
 dynamic_object_t mario;
 
-  int tmp = -1;
-
+int tmp = -1;
 void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, int right, int space)
 {
   obj->xs = 4;
@@ -54,6 +53,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   }
 
   int test1 = map_get((obj->x / 64), obj->y / 64);
+
   if(left && !test1)
   {
     obj->moved = 1;
@@ -65,15 +65,13 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
       obj->anim_next_step++;
     else
       obj->anim_next_step = 0;
-  }
-  else if (left)
+  }else if (left)
   {
     if (obj->anim_next_step < obj->sprite->nb_step-1)
       obj->anim_next_step++;
     else
       obj->anim_next_step = 0; 
   }
-  
 
   int test2 = map_get((obj->x / 64)+1, obj->y / 64);
   if(right && !test2)
@@ -87,8 +85,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
       obj->anim_next_step++;
     else
       obj->anim_next_step = 0;
-  }
-  else if (right)
+  }else if (right)
   {
     if (obj->anim_next_step < obj->sprite->nb_step-1)
       obj->anim_next_step++;
