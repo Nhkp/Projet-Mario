@@ -1,4 +1,3 @@
-
 #include <SDL_image.h>
 
 #include "graphics.h"
@@ -9,7 +8,6 @@
 #include "sprite.h"
 #include "missile.h"
 #include "mario.h"
-
 
 sprite_t bird_shot_sprite;
 sprite_t mario_sprite;

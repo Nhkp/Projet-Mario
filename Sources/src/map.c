@@ -116,7 +116,7 @@ void map_display(){
     }
 }
 
- /*   int x = 6;
+  /*  int x = 6;
     int y = 6;
     int i = 0;
 int edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
@@ -159,4 +159,3 @@ int edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
         return 0;
     return 0;
 }*/
-

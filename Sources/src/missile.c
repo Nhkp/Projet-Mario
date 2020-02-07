@@ -8,6 +8,7 @@
 #include "mario.h"
 #include "collision.h"
 
+
 int x_shot_speed = 10;
 
 dynamic_object_t bird_shot;

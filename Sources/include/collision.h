@@ -1,4 +1,3 @@
-
 #ifndef COLLISION_IS_DEF
 #define COLLISION_IS_DEF
 
