@@ -13,6 +13,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 {
   obj->xs = 4;
   obj->ys = 8;
+  static int x;
   
   if (up && !obj->state) 
   {
