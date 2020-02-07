@@ -19,7 +19,7 @@ void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
     object_object_init(obj, &bird_shot_sprite, OBJECT_TYPE_MISSILE, x, y);
     obj->direction = dir;
     animation_mobile_object_add(obj);
-    printf("    ajout laser : %p\n",obj);
+    //printf("    ajout laser : %p\n",obj);
 }
 
 void animation_missile_one_step (dynamic_object_t *obj)

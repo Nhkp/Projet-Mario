@@ -8,50 +8,42 @@
 
 dynamic_object_t mario;
 
+int update(int dt){
+  return (int)(-(dt*dt/10)+10*dt);
+}
+
 int tmp = -1;
 void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, int right, int space)
 {
   obj->xs = 4;
-  obj->ys = 8;
-  static int x;
-  
+  obj->ys = 6;
+  static int dt;
+  static int jumping;
+  static int saving;
+
   if (up && !obj->state) 
   {
-    obj->y -= 24;
-
-    if (obj->y < tmp - 128)
-    obj->state = OBJECT_STATE_IN_AIR;
+    dt = 0;
+    saving = obj->y;
+    printf("test\n");
+    jumping = 1;
+  }else if(jumping == 1)
+  {
+    if(dt >100){
+      dt = 0;
+      jumping = 0;
+    }else{
+    obj->y = saving - update(dt);
+    dt ++;}
   }
-
-  // gravité
   int test = map_get(obj->x / 64, (obj->y / 64)+2);
-  printf("%d", test);
   if (!test)
   {
     obj->y += obj->ys;
   }
-  else
-  {
-    switch (tab[test].type)
-    {
-    case 0:
-      tmp = obj->y;
-      obj->state = OBJECT_STATE_NORMAL;
-      break;
-    case 1:
-      tmp = obj->y;
-      obj->state = OBJECT_STATE_NORMAL;
-      break;
-    case 2:
-      obj->y+= obj->ys;
-    case 3:
-      obj->y += obj->ys;
-    case 4:
-      obj->y += obj->ys;
-    default:
-      break;
-    }
-  }
+
+  // gravité
+  
 
   int test1 = map_get((obj->x / 64), obj->y / 64);
 

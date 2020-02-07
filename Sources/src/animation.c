@@ -96,18 +96,18 @@ void animation_one_step (int space, int up, int down, int left, int right, int o
             k++;
         }
 
-        printf("Liste d'objets : ");
+       // printf("Liste d'objets : ");
         for_all_objects (obj)
         {
         
-            printf("%p | ", obj);
+            //printf("%p | ", obj);
             animate_func_t func = object_class[obj->type].animate_func;
             if (func != NULL)
             {
                 func (obj);
             }
         }
-        printf("\n");
+        //printf("\n");
     //}
 }
 
