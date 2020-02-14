@@ -25,7 +25,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   {
     dt = 0;
     saving = obj->y;
-    printf("test\n");
+    //printf("test\n");
     jumping = 1;
   }else if(jumping == 1)
   {

@@ -73,7 +73,7 @@ void map_new(int width, int height){
 
     map_set(3, 9, 10);
     map_set(4, 12, 10);
-    map_set(5, 10, 6);
+    //map_set(5, 10, 6);
     
     map_set(1, 6, 9);
 
@@ -91,7 +91,7 @@ void map_display(){
 
                 SDL_RenderCopyEx(ren, tab[map_get(i,j)].tex, NULL, &tab[map_get(i,j)].dst,0,0,0);
             }
-            else if (map_get(i,j)) //Pour les images animées
+            /*else if (map_get(i,j)) //Pour les images animées
             {
                 int ans = tab[map_get(i,j)].anim_next_step;
 
@@ -111,7 +111,7 @@ void map_display(){
                     tab[map_get(i,j)].anim_next_step ++;
                 }
                 
-            }
+            }*/
         }
     }
 }
