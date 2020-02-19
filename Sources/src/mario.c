@@ -21,7 +21,21 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   static int jumping;
   static int saving;
 
-  if (up && !obj->state) 
+  /*if (up && !obj->state){
+    saving = obj->y;
+    obj->y-=obj->ys;
+    obj->state = OBJECT_STATE_IN_AIR;
+  }*/
+  if (up) 
+  {
+    if (obj->y - 6 > 0)
+    {
+      obj->y -= 6;
+      obj->ys -= 4;
+    }
+  }
+
+  /*if (up && !obj->state) 
   {
     dt = 0;
     saving = obj->y;
@@ -35,7 +49,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     }else{
     obj->y = saving - update(dt);
     dt ++;}
-  }
+  }*/
   int test = map_get(obj->x / 64, (obj->y / 64)+2);
   if (!test)
   {
@@ -44,7 +58,6 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
   // gravité
   
-
   int test1 = map_get((obj->x / 64), obj->y / 64);
 
   if(left && !test1)
