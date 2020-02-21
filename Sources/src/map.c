@@ -66,6 +66,7 @@ void map_new(int width, int height){
 
     for (int i = 0; i< height; i++){
         map_set(1, 0, i);
+        map_set(1,20, i);
     }
     for (int i = 0; i< width; i++){
         map_set(2, i, 11);
@@ -76,6 +77,11 @@ void map_new(int width, int height){
     //map_set(5, 10, 6);
     
     map_set(1, 6, 9);
+    map_set(1, 4, 10);
+    map_set(1, 13, 9);
+    map_set(1, 14, 8);
+    map_set(1, 15, 7);
+
 
 }
 

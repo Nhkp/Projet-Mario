@@ -61,8 +61,8 @@ void animation_missile_one_step (dynamic_object_t *obj)
         }
     }
 
-    if (obj-> x > WIN_WIDTH - 64 || obj-> x < 1)//détection du bord de la fenêtre 
+    /*if (obj-> x > WIN_WIDTH - 64 || obj-> x < 1)//détection du bord de la fenêtre 
     {
         add_explosion(obj);
-    }
+    }*/
 }

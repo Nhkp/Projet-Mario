@@ -50,17 +50,19 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     obj->y = saving - update(dt);
     dt ++;}
   }*/
+
+  // gravité
   int test = map_get(obj->x / 64, (obj->y / 64)+2);
-  if (!test)
+  if (tab[test].type == MAP_OBJECT_AIR || !test)
   {
     obj->y += obj->ys;
   }
 
-  // gravité
   
   int test1 = map_get((obj->x / 64), obj->y / 64);
+  int test1b = map_get((obj->x / 64), (obj->y / 64)+1);
 
-  if(left && !test1)
+  if(left && (tab[test1].type == MAP_OBJECT_AIR || !test1) && (tab[test1b].type == MAP_OBJECT_AIR || !test1b))
   {
     obj->moved = 1;
     obj->direction = 1;
@@ -80,7 +82,9 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   }
 
   int test2 = map_get((obj->x / 64)+1, obj->y / 64);
-  if(right && !test2)
+  int test2b = map_get((obj->x / 64)+1, (obj->y / 64)+1);
+  
+  if(right &&   (tab[test2].type == MAP_OBJECT_AIR || !test2) && (tab[test2b].type == MAP_OBJECT_AIR || !test2b))
   {
     obj->moved = 1;
     obj->direction = 0;
