@@ -114,11 +114,11 @@ void scrolling_screen(int x, int y){
   
   if (x-4 <= SECURITY_LEFT)
     x_screen = (x_screen-4 <= 0)? 0 : x_screen-4;
-  if (x+69 >= SECURITY_RIGHT)
+  if (x+TILE+1 >= SECURITY_RIGHT)
     x_screen = (x_screen+4 > (MAP_WIDTH*TILE-WIN_WIDTH))? (MAP_WIDTH*TILE-WIN_WIDTH) : x_screen+4;
   if (y-6 <= SECURITY_TOP)
     y_screen = (y_screen-6 <= 0)? 0 : y_screen-6;
-  if (y+134 >= SECURITY_BOTTOM)
+  if (y+2*TILE+1 >= SECURITY_BOTTOM)
     y_screen = (y_screen+6 >= (MAP_HEIGHT*TILE-WIN_HEIGHT))? (MAP_HEIGHT*TILE-WIN_HEIGHT) : y_screen+6;
 
   //printf("x : %d ;;; y : %d\n", x_screen, y_screen);
