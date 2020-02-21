@@ -6,6 +6,7 @@
 #include "map.h"
 #include "explosion.h"
 
+extern int mv_background[];
 dynamic_object_t mario;
 
 int update(int dt){
@@ -66,7 +67,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   {
     obj->moved = 1;
     obj->direction = 1;
-    if (obj->x > 200)
+    if (obj->x > 200 || mv_background[1]== 0) //ICI
       obj->x -= obj->xs;
 
     if (obj->anim_next_step < obj->sprite->nb_step-1)

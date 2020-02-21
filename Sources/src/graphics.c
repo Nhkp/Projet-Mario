@@ -114,7 +114,7 @@ void graphics_render_trees (SDL_Texture *tex, int factor){
   if (mv_background[4] == -4096 || mv_background[4] == 4096){
     mv_background [4] = 0;
     mv_background [2] = 0;
-    mv_background [1] = 0;
+    //mv_background [1] = 0;
   }
 }
 
@@ -142,13 +142,16 @@ for(int i=0; i<3; i++){
   }while(dst.x<=width);
   }
 
-  mv_background[factor] -= factor*sens;
+  /******************************************************/
+  if(mv_background[1]!=0 || sens>0){
+    mv_background[factor] -= factor*sens;
+  }
 
     // every tour of last scrolling three re-create the list
   if (mv_background[4] == -4096|| mv_background[4] == 4096){
     mv_background [4] = 0;
     mv_background [2] = 0;
-    mv_background [1] = 0;
+    //mv_background [1] = 0;
   }
 }
 

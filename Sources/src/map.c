@@ -4,7 +4,7 @@
 #include "graphics.h"
 #include "constants.h"
 
-
+extern int mv_background[];
 map_object_t tab[6];
 int map[MAP_WIDTH][MAP_HEIGHT];
 
@@ -90,7 +90,8 @@ void map_display(){
         for (int j = 0; j< MAP_HEIGHT; j++){
             if (map_get(i,j) && tab[map_get(i,j)].nb_sprites == 1)
             {
-                tab[map_get(i,j)].dst.x = i*64;
+                //cette ligne
+                tab[map_get(i,j)].dst.x = (mv_background[1]>0)?  i*64: i*64+mv_background[1]*5;
                 tab[map_get(i,j)].dst.y = j*64;
                 tab[map_get(i,j)].dst.w = 64;
                 tab[map_get(i,j)].dst.h = 64;
