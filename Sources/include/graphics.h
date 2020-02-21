@@ -18,9 +18,7 @@
 void graphics_init (Uint32 render_flags, char *background_skin);
 void graphics_render (void);
 void graphics_clean (void);
-void move_trees(int sens);
-void graphics_render_trees (SDL_Texture *tex, int factor);
-void graphics_render_scrolling_trees(SDL_Texture *tex, int factor, int sens);
+void graphics_render_trees(SDL_Texture *tex);
 
 extern int x_screen;
 extern int y_screen;

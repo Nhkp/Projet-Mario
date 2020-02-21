@@ -6,13 +6,13 @@
 
 extern int mv_background[];
 map_object_t tab[6];
-int **map[];
+int map[MAP_WIDTH][MAP_HEIGHT];
 
 void map_allocate(int width, int height){
-    map = malloc(width * sizeof(int*));
+    /***map = malloc(width * sizeof(int*));
     for (int i = 0; i < width ; i++){
         map[i] = malloc(height * sizeof(int));
-    }
+    }*/
 
     for (int i = 0; i<width; i++){
         for ( int j = 0; j< height; j++){
@@ -20,7 +20,7 @@ void map_allocate(int width, int height){
         }
     }
 
-    return void; 
+    return; 
 }
 
 void map_set(int map_object, int x, int y){
@@ -66,33 +66,36 @@ void map_new(int width, int height){
 
     for (int i = 0; i< height; i++){
         map_set(1, 0, i);
-        map_set(1,20, i);
+        map_set(1,49, i);
     }
     for (int i = 0; i< width; i++){
-        map_set(2, i, 11);
+        map_set(2, i, 15);
     }
 
-    map_set(3, 9, 10);
-    map_set(4, 12, 10);
+    map_set(3, 9, 14);
+    map_set(4, 12, 14);
     //map_set(5, 10, 6);
     
-    map_set(1, 6, 9);
-    map_set(1, 4, 10);
-    map_set(1, 13, 9);
-    map_set(1, 14, 8);
-    map_set(1, 15, 7);
+    //fleurs
+    map_set(1, 6, 13);
+    map_set(1, 4, 14);
+
+    //escalier
+    map_set(1, 13, 11);
+    map_set(1, 14, 10);
+    map_set(1, 15, 9);
 
 
 }
 
 void map_display(){
-    for (int i = 0; i< MAP_WIDTH; i++){
-        for (int j = 0; j< MAP_HEIGHT; j++){
+    for (int i = /*floor(x_screen/64)*/0; i< /*floor((x_screen+WIN_WIDTH)/64)*/MAP_WIDTH; i++){
+        for (int j = /*floor(y_screen/64)*/0; j< /*floor((y_screen+WIN_HEIGHT)/64)*/MAP_HEIGHT; j++){
             if (map_get(i,j) && tab[map_get(i,j)].nb_sprites == 1)
             {
                 //cette ligne
-                tab[map_get(i,j)].dst.x = i*64;
-                tab[map_get(i,j)].dst.y = j*64;
+                tab[map_get(i,j)].dst.x = i*64 - x_screen;
+                tab[map_get(i,j)].dst.y = j*64 - y_screen;
                 tab[map_get(i,j)].dst.w = 64;
                 tab[map_get(i,j)].dst.h = 64;
 

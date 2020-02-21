@@ -15,9 +15,9 @@ static SDL_Window *win = NULL;
 SDL_Renderer *ren = NULL;
 static SDL_Texture *background = NULL;
 static SDL_Texture *tree[3] = {NULL, NULL, NULL};
-int mv_background[]= {0,0,0,0,0};
-x_screen = 0;
-y_screen = 0;
+//int mv_background[]= {0,0,0,0,0};
+int x_screen = 0;
+int y_screen = 0;
 
 void graphics_init(Uint32 render_flags, char *background_skin)
 {
@@ -68,7 +68,7 @@ static void graphics_render_background(SDL_Texture *tex)
 
   SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
-  for (int i = 0; i < width + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
+  for (int i = 0; i < 3*width + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
   {
     src.x = 0;
     src.y = 0;
@@ -78,107 +78,50 @@ static void graphics_render_background(SDL_Texture *tex)
     dst.x = i;
     dst.y = 0;
     dst.w = width;
-    dst.h = WIN_HEIGHT;
+    dst.h = height;
 
     SDL_RenderCopy(ren, tex, &src, &dst);
   }
   // FIXME: Maybe we shall loop until the whole screen is filled?
 }
 
-// static trees
-void graphics_render_trees (SDL_Texture *tex, int factor){
-  SDL_Rect src, dst;
-  int width, height;
-
-  SDL_QueryTexture (tex, NULL, NULL, &width, &height);
-
-  src.x = 0;
-  src.y = 0;
-  src.w = width*factor;
-  src.h = height;
-
-  dst.x = mv_background[factor]-width;
-  dst.y = 0;
-  dst.w = width;
-  dst.h = height;
-  
-  for(int i=0; i<3; i++){
-     
-  do{  
-    SDL_RenderCopy (ren, tex, &src, &dst);
-    dst.x += width;
-  }while(dst.x<=width);
-
-
-  }
-
-  // every tour of last scrolling three re-create the list
-  if (mv_background[4] == -4096 || mv_background[4] == 4096){
-    mv_background [4] = 0;
-    mv_background [2] = 0;
-    mv_background [1] = 0;
-  }
-}
-
-//scrolling trees
-void graphics_render_scrolling_trees(SDL_Texture *tex, int factor, int sens)
+void graphics_render_trees(SDL_Texture *tex)
 {
   SDL_Rect src, dst;
   int width, height;
 
   SDL_QueryTexture(tex, NULL, NULL, &width, &height);
+
+  for (int i = 0; i < 3 * width + 1; i += width)
+  {
     src.x = 0;
     src.y = 0;
-    src.w = width*factor;
+    src.w = width;
     src.h = height;
 
-    dst.x = mv_background[factor]-width;
-    dst.y = 0;
+    dst.x = i - x_screen;
+    dst.y = -y_screen;
     dst.w = width;
     dst.h = height;
 
-for(int i=0; i<3; i++){   
-  do{  
-    SDL_RenderCopy (ren, tex, &src, &dst);
-    dst.x += width;
-  }while(dst.x<=width);
-  }
-
-  mv_background[factor] -= factor*sens;
-
-    // every tour of last scrolling three re-create the list
-  if (mv_background[4] == -4096|| mv_background[4] == 4096){
-    mv_background [4] = 0;
-    mv_background [2] = 0;
-    mv_background [1] = 0;
+    SDL_RenderCopy(ren, tex, &src, &dst);
   }
 }
 
-void move_trees(int sens){
-  graphics_render_scrolling_trees(tree[2], 1, sens);
-  graphics_render_scrolling_trees(tree[1], 2, sens);
-  graphics_render_scrolling_trees(tree[0], 4, sens);
-}
-void trees(){
-  graphics_render_trees(tree[2], 1);
-  graphics_render_trees(tree[1], 2);
-  graphics_render_trees(tree[0], 4);
-}
+void scrolling_screen(int x, int y){
+  x = x - x_screen;
+  y = y - y_screen;
+  
+  if (x-4 <= SECURITY_LEFT)
+    x_screen = (x_screen-4 <= 0)? 0 : x_screen-4;
+  if (x+69 >= SECURITY_RIGHT)
+    x_screen = (x_screen+4 > (MAP_WIDTH*TILE-WIN_WIDTH))? (MAP_WIDTH*TILE-WIN_WIDTH) : x_screen+4;
+  if (y-6 <= SECURITY_TOP)
+    y_screen = (y_screen-6 <= 0)? 0 : y_screen-6;
+  if (y+134 >= SECURITY_BOTTOM)
+    y_screen = (y_screen+6 >= (MAP_HEIGHT*TILE-WIN_HEIGHT))? (MAP_HEIGHT*TILE-WIN_HEIGHT) : y_screen+6;
 
-void scrolling_gestion(){
-
-  if(mario.direction == 0 && mario.x == 900 && mario.moved == 1){
-    move_trees(1);
-    mario.moved = 0;
-    x_screen--;
-  }
-  else if(mario.direction == 1 && mario.x == 200 && mario.moved == 1){
-    move_trees(-1);
-    mario.moved = 0;
-    x_screen++;
-
-  }
-  else{trees();}
+  //printf("x : %d ;;; y : %d\n", x_screen, y_screen);
 }
 
 
@@ -195,11 +138,14 @@ void graphics_render(void)
   // We display the background clouds
   graphics_render_background(background);
 
-  scrolling_gestion();
+  // We display the background threes
+  for(int i = 2; i>=0; i--)
+    graphics_render_trees(tree[i]);
 
   // FIXME: We display the main character
   animation_render_objects();
   
+  scrolling_screen(mario.x, mario.y);
 
   interm = SDL_GetTicks();
 

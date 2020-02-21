@@ -22,8 +22,8 @@ static void graphics_render_object(dynamic_object_t *obj)
     {
         int i = obj->anim_next_step;
 
-        dst.x = obj->x;
-        dst.y = obj->y;
+        dst.x = obj->x-x_screen;
+        dst.y = obj->y-y_screen;
         dst.w = obj->sprite->tab[i].w;
         dst.h = obj->sprite->tab[i].h;
 
@@ -33,8 +33,8 @@ static void graphics_render_object(dynamic_object_t *obj)
     {
         SDL_QueryTexture(obj->sprite->tex, NULL, NULL, &dst.w, &dst.h);
 
-        dst.x = obj->x;
-        dst.y = obj->y;
+        dst.x = obj->x-x_screen;
+        dst.y = obj->y-y_screen;
 
         SDL_RenderCopyEx(ren, obj->sprite->tex, NULL, &dst, 0, NULL, obj->direction);
     }

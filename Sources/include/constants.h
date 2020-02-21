@@ -6,12 +6,17 @@
 #define WIN_HEIGHT  754
 
 #define MAP_WIDTH 50
-#define MAP_HEIGHT 12
+#define MAP_HEIGHT 16
 
 #define MARIO_INITIAL_POSX 320
 #define MARIO_INITIAL_POSY 0
 
-#define SECURITY_TOP 
+#define SECURITY_TOP 256
+#define SECURITY_BOTTOM 754-128
+#define SECURITY_LEFT 128
+#define SECURITY_RIGHT 1280-256
+
+#define TILE 64
 
 
 #endif

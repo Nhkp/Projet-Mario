@@ -20,11 +20,11 @@ typedef struct {
    int anim_next_step;
 } map_object_t;
 
-extern int **map[];
+extern int map[MAP_WIDTH][MAP_HEIGHT];
 extern map_object_t tab[6];
 
 void map_new(int width, int height);
-void* map_allocate(int width, int height);
+void map_allocate(int width, int height);
 void map_set(int map_object, int x, int y);
 int map_get(int x, int y);
 void map_object_add(const char* path, int nb_sprites, int type, int num);
