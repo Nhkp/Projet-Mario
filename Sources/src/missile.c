@@ -9,7 +9,7 @@
 #include "collision.h"
 
 
-int x_shot_speed = 10;
+int x_shot_speed = 8;
 
 dynamic_object_t bird_shot;
 

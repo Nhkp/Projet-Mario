@@ -5,6 +5,7 @@
 #include "list.h"
 #include "missile.h"
 #include "map.h"
+#include "constants.h"
 
 static LIST_HEAD(obj_list); //Initialisation de la file d'objets
 
@@ -128,7 +129,7 @@ void animation_clean (void)
 {
     for_all_objects (obj)
     {
-        if ((obj != &mario && obj->x > WIN_WIDTH) || obj->state == OBJECT_STATE_DESTROYED || obj->anim_next_step == -1)
+        if ((obj != &mario && obj->x > MAP_WIDTH*TILE) || obj->state == OBJECT_STATE_DESTROYED || obj->anim_next_step == -1)
         {
             printf("            suppression : %p\n",obj);
             animation_mobile_object_del (obj);
