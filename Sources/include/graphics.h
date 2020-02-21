@@ -22,6 +22,8 @@ void move_trees(int sens);
 void graphics_render_trees (SDL_Texture *tex, int factor);
 void graphics_render_scrolling_trees(SDL_Texture *tex, int factor, int sens);
 
+extern int x_screen;
+extern int y_screen;
 
 extern SDL_Renderer *ren;
 

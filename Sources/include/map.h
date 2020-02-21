@@ -20,7 +20,7 @@ typedef struct {
    int anim_next_step;
 } map_object_t;
 
-extern int map[MAP_WIDTH][MAP_HEIGHT];
+extern int **map[];
 extern map_object_t tab[6];
 
 void map_new(int width, int height);

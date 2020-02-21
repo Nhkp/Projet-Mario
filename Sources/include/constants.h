@@ -11,5 +11,7 @@
 #define MARIO_INITIAL_POSX 320
 #define MARIO_INITIAL_POSY 0
 
+#define SECURITY_TOP 
+
 
 #endif

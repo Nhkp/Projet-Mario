@@ -66,7 +66,6 @@ void animation_init(void)
     object_init();
 }
 
-int E = 0;
 void animation_one_step (int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
 {
     //Interaction utilisateur/oiseau

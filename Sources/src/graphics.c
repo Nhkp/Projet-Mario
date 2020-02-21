@@ -16,6 +16,8 @@ SDL_Renderer *ren = NULL;
 static SDL_Texture *background = NULL;
 static SDL_Texture *tree[3] = {NULL, NULL, NULL};
 int mv_background[]= {0,0,0,0,0};
+x_screen = 0;
+y_screen = 0;
 
 void graphics_init(Uint32 render_flags, char *background_skin)
 {
@@ -114,7 +116,7 @@ void graphics_render_trees (SDL_Texture *tex, int factor){
   if (mv_background[4] == -4096 || mv_background[4] == 4096){
     mv_background [4] = 0;
     mv_background [2] = 0;
-    //mv_background [1] = 0;
+    mv_background [1] = 0;
   }
 }
 
@@ -142,16 +144,13 @@ for(int i=0; i<3; i++){
   }while(dst.x<=width);
   }
 
-  /******************************************************/
-  if(mv_background[1]!=0 || sens>0){
-    mv_background[factor] -= factor*sens;
-  }
+  mv_background[factor] -= factor*sens;
 
     // every tour of last scrolling three re-create the list
   if (mv_background[4] == -4096|| mv_background[4] == 4096){
     mv_background [4] = 0;
     mv_background [2] = 0;
-    //mv_background [1] = 0;
+    mv_background [1] = 0;
   }
 }
 
@@ -171,13 +170,17 @@ void scrolling_gestion(){
   if(mario.direction == 0 && mario.x == 900 && mario.moved == 1){
     move_trees(1);
     mario.moved = 0;
+    x_screen--;
   }
   else if(mario.direction == 1 && mario.x == 200 && mario.moved == 1){
     move_trees(-1);
     mario.moved = 0;
+    x_screen++;
+
   }
   else{trees();}
 }
+
 
 void graphics_render(void)
 {

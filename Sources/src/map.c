@@ -6,13 +6,13 @@
 
 extern int mv_background[];
 map_object_t tab[6];
-int map[MAP_WIDTH][MAP_HEIGHT];
+int **map[];
 
-void* map_allocate(int width, int height){
-    /**map = malloc(width * sizeof(int*));
+void map_allocate(int width, int height){
+    map = malloc(width * sizeof(int*));
     for (int i = 0; i < width ; i++){
         map[i] = malloc(height * sizeof(int));
-    }*/
+    }
 
     for (int i = 0; i<width; i++){
         for ( int j = 0; j< height; j++){
@@ -20,7 +20,7 @@ void* map_allocate(int width, int height){
         }
     }
 
-    return (void*)map; 
+    return void; 
 }
 
 void map_set(int map_object, int x, int y){
@@ -91,7 +91,7 @@ void map_display(){
             if (map_get(i,j) && tab[map_get(i,j)].nb_sprites == 1)
             {
                 //cette ligne
-                tab[map_get(i,j)].dst.x = (mv_background[1]>0)?  i*64: i*64+mv_background[1]*5;
+                tab[map_get(i,j)].dst.x = i*64;
                 tab[map_get(i,j)].dst.y = j*64;
                 tab[map_get(i,j)].dst.w = 64;
                 tab[map_get(i,j)].dst.h = 64;
