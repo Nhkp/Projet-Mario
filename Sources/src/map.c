@@ -85,6 +85,8 @@ void map_new(int width, int height){
     map_set(1, 14, 10);
     map_set(1, 15, 9);
 
+    map_set(1, 18, 12);
+
 
 }
 

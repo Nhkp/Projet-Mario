@@ -10,30 +10,53 @@ extern int mv_background[];
 dynamic_object_t mario;
 
 int update(int dt){
-  return (int)(-(dt*dt/10)+10*dt);
+  return (int)(-(dt*dt/10)+8*dt);
 }
 
 int tmp = -1;
 void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, int right, int space)
 {
-  obj->xs = 4;
-  obj->ys = 6;
+  
+
+
+  obj->xs = 5;
+  obj->ys = 15;
+  int test = map_get(obj->x / 64, (obj->y / 64)+2);
+
+
  
-  if (up) 
+  static int dt;
+  static int jumping;
+  static int saving;
+  if (up && !obj->state) 
   {
-    if (obj->y - 6 > 0)
-    {
-      obj->y -= 6;
-      obj->ys -= 4;
-    }
+    obj->y -= 24;
+    dt = 0;
+
+    saving = obj->y;
+    obj->state = OBJECT_STATE_IN_AIR;
+    jumping = 1;
+  }else if(jumping == 1)
+  {
+    if(dt >100 || test){
+      dt = 0;
+      jumping = 0;
+    }else{
+    obj->y = saving - update(dt);
+    dt ++;}
   }
+  
+if (test)
+{
+  obj->state = OBJECT_STATE_NORMAL;
+}
 
   // gravité
-  int test = map_get(obj->x / 64, (obj->y / 64)+2);
   if (tab[test].type == MAP_OBJECT_AIR || !test)
   {
-    obj->y += obj->ys;
+    obj->y += obj->ys;    
   }
+
 
   
   int test1 = map_get((obj->x / 64), obj->y / 64);
