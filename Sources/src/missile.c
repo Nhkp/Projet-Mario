@@ -7,6 +7,7 @@
 #include "explosion.h"
 #include "mario.h"
 #include "collision.h"
+#include "constants.h"
 
 dynamic_object_t bird_shot;
 
@@ -22,7 +23,7 @@ void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
 void animation_missile_one_step (dynamic_object_t *obj)
 {
     obj->xs = 8;
-    int test = map_get((obj->x-obj->xs)/64,(obj->y)/64);
+    int test = map_get((obj->x)/TILE,(obj->y)/TILE);
     //Le missile avance
     if(obj->direction && !test)
         obj->x -= obj->xs;
@@ -40,7 +41,7 @@ void animation_missile_one_step (dynamic_object_t *obj)
         }
     }
 
-    int test2 = map_get((obj->x+obj->xs)/64,(obj->y)/64);
+    int test2 = map_get((obj->x/TILE)+1,(obj->y)/TILE);
     //Le missile avance
     if(!obj->direction && !test2)
         obj->x += obj->xs;
