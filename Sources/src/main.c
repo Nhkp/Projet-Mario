@@ -12,6 +12,7 @@
 #include "animation.h"
 #include "missile.h"
 #include "mario.h"
+#include "map.h"
 
 #define DEFAULT_BACKGROUND_SKIN "trees"
 
@@ -129,7 +130,11 @@ int main(int argc, char **argv)
     int up = keystates[SDL_SCANCODE_UP], down = keystates[SDL_SCANCODE_DOWN], space = keystates[SDL_SCANCODE_SPACE];
     int left = keystates[SDL_SCANCODE_LEFT], right = keystates[SDL_SCANCODE_RIGHT];
     int ok = keystates[SDL_SCANCODE_KP_ENTER], shift = keystates[SDL_SCANCODE_LSHIFT], q = keystates[SDL_SCANCODE_Q], e  = keystates[SDL_SCANCODE_E] ;
-    animation_one_step(space, up, down, left, right, ok, shift,q,e);
+    
+   // if(e || edition)
+   //   edit_mode(up, down, left, right, ok, shift, q);
+   // else
+      animation_one_step(space, up, down, left, right, ok, shift,q,e);
 
     // Refresh screen
     graphics_render();

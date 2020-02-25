@@ -9,6 +9,7 @@
 #include "object.h"
 #include "animation.h"
 #include "mario.h"
+#include "map.h"
 
 extern dynamic_object_t mario;
 static SDL_Window *win = NULL;
@@ -68,7 +69,7 @@ static void graphics_render_background(SDL_Texture *tex)
 
   SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
-  for (int i = 0; i < 3*width + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
+  for (int i = 0; i < MAP_WIDTH*TILE + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
   {
     src.x = 0;
     src.y = 0;
@@ -85,7 +86,7 @@ static void graphics_render_background(SDL_Texture *tex)
   // FIXME: Maybe we shall loop until the whole screen is filled?
 }
 
-void graphics_render_trees(SDL_Texture *tex)
+void graphics_render_trees(SDL_Texture *tex, int factor)
 {
   SDL_Rect src, dst;
   int width, height;
@@ -99,7 +100,7 @@ void graphics_render_trees(SDL_Texture *tex)
     src.w = width;
     src.h = height;
 
-    dst.x = i - x_screen;
+    dst.x = (i - x_screen)/factor;
     dst.y = -y_screen;
     dst.w = width;
     dst.h = height;
@@ -120,8 +121,6 @@ void scrolling_screen(int x, int y){
     y_screen = (y_screen-6 <= 0)? 0 : y_screen-6;
   if (y+2*TILE+1 >= SECURITY_BOTTOM)
     y_screen = (y_screen+6 >= (MAP_HEIGHT*TILE-WIN_HEIGHT))? (MAP_HEIGHT*TILE-WIN_HEIGHT) : y_screen+6;
-
-  //printf("x : %d ;;; y : %d\n", x_screen, y_screen);
 }
 
 
@@ -140,7 +139,9 @@ void graphics_render(void)
 
   // We display the background threes
   for(int i = 2; i>=0; i--)
-    graphics_render_trees(tree[i]);
+    graphics_render_trees(tree[i], (i*2)? i*2 : 1);
+
+  map_display();
 
   // FIXME: We display the main character
   animation_render_objects();

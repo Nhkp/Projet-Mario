@@ -39,8 +39,6 @@ static void graphics_render_object(dynamic_object_t *obj)
 
         SDL_RenderCopyEx(ren, obj->sprite->tex, NULL, &dst, 0, NULL, obj->direction);
     }
-
-    map_display();
 }
 
 //Ajout d'objets en bout de file
@@ -70,8 +68,8 @@ void animation_init(void)
 void animation_one_step (int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
 {
     //Interaction utilisateur/oiseau
-    /*if (e || E)
-        E = edit_mode(up, down, left, right, ok, shift, q);
+    /*if (e)
+        edit_mode(up, down, left, right, ok, shift, q);
     else
     {*/
         animation_mario_moves (&mario, up, down, left, right, space);

@@ -5,7 +5,7 @@ void animation_init (void);
 
 void animation_one_step (int space, int up,int down, int left, int right,int ok, int shift, int q, int e);
 
-void animation_render_objects (void);
+//void animation_render_objects (void);
 
 void animation_mobile_object_del (dynamic_object_t *obj);
 void animation_mobile_object_add (dynamic_object_t *obj);

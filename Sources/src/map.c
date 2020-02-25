@@ -4,9 +4,10 @@
 #include "graphics.h"
 #include "constants.h"
 
-extern int mv_background[];
 map_object_t tab[6];
 int map[MAP_WIDTH][MAP_HEIGHT];
+
+int edition = 0;
 
 void map_allocate(int width, int height){
     /***map = malloc(width * sizeof(int*));
@@ -63,20 +64,22 @@ void map_new(int width, int height){
     map_object_add("../images/flower2.png", 1, 2, 4);
     map_object_add("../images/coin.png", 16, 2, 5);
 
-
+    //Murs
     for (int i = 0; i< height; i++){
         map_set(1, 0, i);
-        map_set(1,49, i);
-    }
-    for (int i = 0; i< width; i++){
-        map_set(2, i, 15);
+        map_set(1, MAP_WIDTH-1, i);
     }
 
+    //Sol
+    for (int i = 0; i< width; i++){
+        map_set(2, i, MAP_HEIGHT-1);
+    }
+
+    //fleurs
     map_set(3, 9, 14);
     map_set(4, 12, 14);
-    //map_set(5, 10, 6);
     
-    //fleurs
+    //blocs libres
     map_set(1, 6, 13);
     map_set(1, 4, 14);
 
@@ -89,15 +92,16 @@ void map_new(int width, int height){
 }
 
 void map_display(){
-    for (int i = /*floor(x_screen/64)*/0; i< /*floor((x_screen+WIN_WIDTH)/64)*/MAP_WIDTH; i++){
-        for (int j = /*floor(y_screen/64)*/0; j< /*floor((y_screen+WIN_HEIGHT)/64)*/MAP_HEIGHT; j++){
+
+    for (int i = ((x_screen/TILE)-1 >= 0)?(x_screen/TILE)-1 : 0; i< /*(((x_screen+WIN_WIDTH)/TILE)+1 < MAP_WIDTH) ? ((x_screen+WIN_WIDTH)/TILE)+1 :*/ MAP_WIDTH; i++){
+        for (int j = ((y_screen/TILE)-1 >= 0)?(y_screen/TILE)-1 : 0; j< /*(((y_screen+WIN_HEIGHT)/TILE)+1 < MAP_HEIGHT) ? ((y_screen+WIN_HEIGHT)/TILE)+1 : */MAP_HEIGHT; j++){
             if (map_get(i,j) && tab[map_get(i,j)].nb_sprites == 1)
             {
                 //cette ligne
-                tab[map_get(i,j)].dst.x = i*64 - x_screen;
-                tab[map_get(i,j)].dst.y = j*64 - y_screen;
-                tab[map_get(i,j)].dst.w = 64;
-                tab[map_get(i,j)].dst.h = 64;
+                tab[map_get(i,j)].dst.x = i*TILE - x_screen;
+                tab[map_get(i,j)].dst.y = j*TILE - y_screen;
+                tab[map_get(i,j)].dst.w = TILE;
+                tab[map_get(i,j)].dst.h = TILE;
 
                 SDL_RenderCopyEx(ren, tab[map_get(i,j)].tex, NULL, &tab[map_get(i,j)].dst,0,0,0);
             }
@@ -126,46 +130,37 @@ void map_display(){
     }
 }
 
-  /*  int x = 6;
+    
+/*int edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
+    
+    int x = 6;
     int y = 6;
-    int i = 0;
-int edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
-
-    printf("je suis dans l'edition");
-    map_set(0, x, y);
+    int i = 1;
+    
+    if (up) y--;
+    if (down) y++;
+    if (left) x--;
+    if (right) x++;
+    if (shift)
+    {
+        i++;
+        if (i > 3) i = 0;
+    }
+    if (q)
+        edition = 0;
+    if (ok)
+        map_set(i, x, y);
     if (x > MAP_WIDTH-1 || x < 0)
         x=0;
     if (y > MAP_HEIGHT-1 || y < 0)
         y=0;
-    if (up)
-    {
-        y--;
-    }
-    if (down)
-    {
-        y++;
-    }
-    if (left)
-    {
-        x--;
-    }
-    if (right)
-    {
-        x++;
-    }
-    if (shift)
-    {
-        i++;
-        if (i > 3)
-            i = 0;
-    }
 
-    //SDL_RenderCopyEx(ren, tab[i].tex, NULL, &tab[map_get(x, y)].dst, 0, 0, 0);
+    tab[map_get(x,y)].dst.x = x-(x_screen/TILE);
+    tab[map_get(x,y)].dst.y = y-(y_screen/TILE);
+    tab[map_get(x,y)].dst.w = TILE;
+    tab[map_get(x,y)].dst.h = TILE;
+    
+    SDL_RenderCopyEx(ren, tab[i].tex, NULL, &tab[map_get(x, y)].dst, 0, 0, 0);
 
-    //if (ok)
-        map_set(i, x, y);
-
-    if (q)
-        return 0;
     return 0;
 }*/

@@ -18,7 +18,8 @@
 void graphics_init (Uint32 render_flags, char *background_skin);
 void graphics_render (void);
 void graphics_clean (void);
-void graphics_render_trees(SDL_Texture *tex);
+void graphics_render_trees(SDL_Texture *tex, int factor);
+void animation_render_objects (void);
 
 extern int x_screen;
 extern int y_screen;
