@@ -120,7 +120,7 @@ int main(int argc, char **argv)
         }
         break;
       case SDL_USEREVENT:
-        //animation_timer_expired(evt.user.data1, evt.user.data2);
+        evt.user.data1;
         break;
 
       default:;

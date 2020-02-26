@@ -4,7 +4,7 @@
 #include "graphics.h"
 #include "constants.h"
 
-map_object_t tab[6];
+map_object_t tab[7];
 int map[MAP_WIDTH][MAP_HEIGHT];
 
 int edition = 0;
@@ -32,10 +32,11 @@ int map_get(int x, int y){
     return map[x][y];
 }
 
-void map_object_add(const char* path, int nb_sprites, int type, int num){
+void map_object_add(const char* path, int nb_sprites, int type, int type2, int num){
     map_object_t tmp;
     tmp.nb_sprites = nb_sprites;
     tmp.type = type;
+    tmp.type2 = type2;
     tmp.anim_next_step = 0;
     if(nb_sprites == 1)
         tmp.tex = IMG_LoadTexture(ren, path);
@@ -58,11 +59,12 @@ void map_object_add(const char* path, int nb_sprites, int type, int num){
 
 void map_new(int width, int height){
     map_allocate(width, height);
-    map_object_add("../images/wall.png", 1, 0, 1);
-    map_object_add("../images/ground.png", 1, 0, 2);
-    map_object_add("../images/flower.png", 1, 2, 3);
-    map_object_add("../images/flower2.png", 1, 2, 4);
-    map_object_add("../images/coin.png", 16, 2, 5);
+    map_object_add("../images/wall.png", 1, 0, 6, 1);
+    map_object_add("../images/ground.png", 1, 0, 0, 2);
+    map_object_add("../images/flower.png", 1, 2, 6, 3);
+    map_object_add("../images/flower2.png", 1, 2, 6, 4);
+    map_object_add("../images/coin.png", 16, 2, 0, 5);
+    map_object_add("../images/tnt.png", 1, 6, 7, 6);
 
     //Murs
     for (int i = 0; i< height; i++){
@@ -87,6 +89,16 @@ void map_new(int width, int height){
     map_set(1, 13, 11);
     map_set(1, 14, 10);
     map_set(1, 15, 9);
+
+    //TNT
+    map_set(6, 20, 13);
+
+    map_set(1, 20, 12);
+    map_set(1, 20, 14);
+    map_set(1, 21, 12);
+    map_set(1, 21, 13);
+    map_set(1, 21, 14);
+
 
 
 }

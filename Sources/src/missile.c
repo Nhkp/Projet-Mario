@@ -8,6 +8,7 @@
 #include "mario.h"
 #include "collision.h"
 #include "constants.h"
+#include "tnt.h"
 
 dynamic_object_t bird_shot;
 
@@ -36,7 +37,15 @@ void animation_missile_one_step (dynamic_object_t *obj)
                 add_explosion(obj);
                 break;
 
+            case 6:
+                obj->x -= obj->xs; 
+                tnt_explode((int)(obj->x)/TILE, (int)(obj->y)/TILE);
+                break;
+
             default:
+                obj->x -= obj->xs;
+                add_explosion(obj);
+
                 break;
         }
     }
@@ -50,12 +59,18 @@ void animation_missile_one_step (dynamic_object_t *obj)
         switch(tab[test2].type)
         {
             case 0:
-                //if (isInside(obj, tab[test2]))
-                    obj->x += obj->xs;
-                    add_explosion(obj);
+                obj->x += obj->xs;
+                add_explosion(obj);
+                break;
+            
+            case 6:
+                obj->x += obj->xs; 
+                tnt_explode((int)(obj->x/TILE)+1, (int)(obj->y)/TILE);
                 break;
 
             default:
+                obj->x += obj->xs;
+                add_explosion(obj);
                 break;
         }
     }

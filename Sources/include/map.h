@@ -8,11 +8,17 @@ enum {
 MAP_OBJECT_SOLID,
 MAP_OBJECT_SEMI_SOLID,
 MAP_OBJECT_AIR,
-MAP_OBJECT_NUM
+MAP_OBJECT_NUM,
+MAP_OBJECT_LIQUID,
+MAP_OBJECT_COLLECTIBLE,
+MAP_OBJECT_DESTRUCTIBLE,
+MAP_OBJECT_EXPLOSIVE,
+MAP_OBJECT_TRANSPARENT
 };
 
 typedef struct {
    int type;
+   int type2;
    SDL_Texture *tex;
    int nb_sprites;
    SDL_Rect dst;
@@ -21,13 +27,13 @@ typedef struct {
 } map_object_t;
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
-extern map_object_t tab[6];
+extern map_object_t tab[7];
 
 void map_new(int width, int height);
 void map_allocate(int width, int height);
 void map_set(int map_object, int x, int y);
 int map_get(int x, int y);
-void map_object_add(const char* path, int nb_sprites, int type, int num);
+void map_object_add(const char* path, int nb_sprites, int type, int type2, int num);
 
 void map_display();
 int edit_mode(int up, int down, int left, int right, int ok, int shift, int q);

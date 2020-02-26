@@ -1,6 +1,8 @@
 #ifndef ANIM_IS_DEF
 #define ANIM_IS_DEF
 
+#include "object.h"
+
 void animation_init (void);
 
 void animation_one_step (int space, int up,int down, int left, int right,int ok, int shift, int q, int e);

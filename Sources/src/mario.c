@@ -26,14 +26,14 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     obj->state = OBJECT_STATE_IN_AIR;
 
   // gravité
-  if (!collision(&mario, DOWN))
+  if (!collision(obj, DOWN))
     obj->y += obj->ys;
   //else
   //  obj->state = OBJECT_STATE_NORMAL;
   
 
   //LEFT
-  if(left && !collision(&mario, LEFT))
+  if(left && !collision(obj, LEFT))
   {
     obj->direction = 1;
     obj->x -= obj->xs;
@@ -44,7 +44,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     obj->anim_next_step = (obj->anim_next_step < obj->sprite->nb_step-1) ? obj->anim_next_step+1 : 0; 
 
   //RIGHT
-  if(right && !collision(&mario, RIGHT))
+  if(right && !collision(obj, RIGHT))
   {
     obj->direction = 0;
     obj->x += obj->xs;

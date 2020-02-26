@@ -1,5 +1,4 @@
 #include "object.h"
-//#include "bird.h"
 #include "sprite.h"
 #include "graphics.h"
 #include "missile.h"
@@ -9,8 +8,6 @@
 
 
 object_type_t object_class [4];
-
-object_type_t object_class2 [4];
 
 void object_init (void)
 {
@@ -24,6 +21,7 @@ void object_init (void)
 
     object_type_t explosion;
     explosion.animate_func = (*animation_explosion);
+
     object_class [OBJECT_TYPE_EXPLOSION] = explosion; 
     
     //object_class [OBJECT_TYPE_TEXT] = &texte_move;  
@@ -42,6 +40,5 @@ void object_object_init (dynamic_object_t *obj, sprite_t *sp, int type, int x, i
     obj->state = 0;
     obj->xs = 0;
     obj->ys = 0;
-    //obj->moved = 0;
-    //obj->timer = timer_init();
+    obj->timer = 0;
 }
