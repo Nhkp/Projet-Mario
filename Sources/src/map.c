@@ -99,6 +99,7 @@ void map_new(int width, int height){
     map_set(1, 21, 13);
     map_set(1, 21, 14);
 
+    map_set(1, 18, 12);
 
 
 }
