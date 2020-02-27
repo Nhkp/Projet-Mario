@@ -33,5 +33,5 @@ void tnt_explode(int x, int y){
     if (map_get(x*TILE-TILE, y*TILE+TILE)) map_set(0, x-1, y+1); 
     
     add_explosion2(x*TILE-TILE, y*TILE);
-    if (map_get(x*TILE-TILE, y*TILE)) map_set(0, x-1, y); 
+    if (map_get(x*TILE-TILE, y*TILE)) map_set(0, -1, y); 
 }
