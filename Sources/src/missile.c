@@ -12,7 +12,7 @@
 
 dynamic_object_t bird_shot;
 
-void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
+void animation_missile_add(dynamic_object_t *obj, int x, int y, int dir)
 {
     //Init du laser et ajout a la liste
     object_object_init(obj, &bird_shot_sprite, OBJECT_TYPE_MISSILE, x, y);
@@ -21,73 +21,68 @@ void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
     //printf("    ajout laser : %p\n",obj);
 }
 
-void animation_missile_one_step (dynamic_object_t *obj)
+void animation_missile_one_step(dynamic_object_t *obj)
 {
     obj->xs = 8;
     //Le missile avance
     if (obj->direction)
     {
-        switch(collision(obj, LEFT))
+        switch (collision(obj, LEFT))
         {
-            case 0:
-                obj->x -= obj->xs;
-                break;
+        case 0:
+            obj->x -= obj->xs;
+            break;
 
-            case 1:
-                obj->x -= obj->xs;
-                add_explosion(obj);
-                break;
+        case 1:
+            obj->x -= obj->xs;
+            add_explosion(obj);
+            break;
 
-            case 2:
-                obj->x -= obj->xs;
-                add_explosion(obj);
-                break;
+        case 2:
+            obj->x -= obj->xs;
+            add_explosion(obj);
+            break;
 
-            case 6:
-                obj->x -= obj->xs; 
-                tnt_explode((int)(obj->x)/TILE, (int)(obj->y)/TILE);
-                break;
+        case 6:
+            obj->x -= obj->xs;
+            tnt_explode((int)(obj->x) / TILE, (int)(obj->y) / TILE);
+            break;
 
-            default:
-                obj->x -= obj->xs;
-                add_explosion(obj);
+        default:
+            obj->x -= obj->xs;
+            add_explosion(obj);
 
-                break;
+            break;
         }
     }
 
     //Le missile avance
     if (!obj->direction)
     {
-        switch(collision(obj, RIGHT))
+        switch (collision(obj, RIGHT))
         {
-            case 0:
-                obj->x += obj->xs;
-                break;
-            
-            case 1:
-                obj->x += obj->xs;
-                add_explosion(obj);
-                break;
-            
-            case 2:
-                obj->x += obj->xs;
-                add_explosion(obj);
-                break;
-            
-            case 6:
-                obj->x += obj->xs; 
-                tnt_explode((int)(obj->x/TILE)+1, (int)(obj->y)/TILE);
-                break;
+        case 0:
+            obj->x += obj->xs;
+            break;
 
-            default:
-                obj->x += obj->xs;
-                break;
+        case 1:
+            obj->x += obj->xs;
+            add_explosion(obj);
+            break;
+
+        case 2:
+            obj->x += obj->xs;
+            add_explosion(obj);
+            break;
+
+        case 6:
+            obj->x += obj->xs;
+            tnt_explode((int)(obj->x / TILE) + 1, (int)(obj->y) / TILE);
+            break;
+
+        default:
+            obj->x += obj->xs;
+            break;
         }
     }
-
-    /*if (obj-> x > WIN_WIDTH - 64 || obj-> x < 1)//détection du bord de la fenêtre 
-    {
-        add_explosion(obj);
-    }*/
 }

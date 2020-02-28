@@ -4,16 +4,16 @@
 #include "object.h"
 #include "map.h"
 
-
-enum {
-UP,
-DOWN2,
-LEFT,
-RIGHT,
-UP_RIGHT,
-UP_LEFT,
-DOWN_RIGHT,
-DOWN_LEFT
+enum
+{
+    UP,
+    DOWN2,
+    LEFT,
+    RIGHT,
+    UP_RIGHT,
+    UP_LEFT,
+    DOWN_RIGHT,
+    DOWN_LEFT
 };
 
 int collision(dynamic_object_t *obj, int direction);

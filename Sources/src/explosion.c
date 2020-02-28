@@ -7,11 +7,12 @@ void animation_explosion(dynamic_object_t *obj)
     //Animation de l'explosion
     if (obj->anim_next_step < 25 && obj->anim_next_step != -1)
         obj->anim_next_step++;
-    else if (obj->anim_next_step >=25 && obj->anim_next_step != -1)
+    else if (obj->anim_next_step >= 25 && obj->anim_next_step != -1)
         obj->anim_next_step = -1;
 }
 
-void add_explosion(dynamic_object_t *obj){
+void add_explosion(dynamic_object_t *obj)
+{
     dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
     object_object_init(tmp, &explosion_sprite, OBJECT_TYPE_EXPLOSION, obj->x, obj->y);
     animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste
@@ -19,7 +20,8 @@ void add_explosion(dynamic_object_t *obj){
     obj->state = OBJECT_STATE_DESTROYED;
 }
 
-void add_explosion2(int x, int y){
+void add_explosion2(int x, int y)
+{
     dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
     object_object_init(tmp, &explosion_sprite, OBJECT_TYPE_EXPLOSION, x, y);
     animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste

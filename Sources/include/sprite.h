@@ -12,13 +12,13 @@ typedef struct
     int nb_step;
     int img_size;
     SDL_Rect tab[25];
-}sprite_t;
+} sprite_t;
 
 extern sprite_t mario_sprite;
 extern sprite_t bird_shot_sprite;
 
-void sprite_init (void);
+void sprite_init(void);
 
-void sprite_clean (void);
+void sprite_clean(void);
 
 #endif

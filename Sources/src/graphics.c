@@ -69,7 +69,7 @@ static void graphics_render_background(SDL_Texture *tex)
 
   SDL_QueryTexture(tex, NULL, NULL, &width, &height);
 
-  for (int i = 0; i < MAP_WIDTH*TILE + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
+  for (int i = 0; i < MAP_WIDTH * TILE + 1; i += width) //Petit bricolage pour l'affichage du fond d'écran
   {
     src.x = 0;
     src.y = 0;
@@ -100,7 +100,7 @@ void graphics_render_trees(SDL_Texture *tex, int factor)
     src.w = width;
     src.h = height;
 
-    dst.x = (i - x_screen)/factor;
+    dst.x = (i - x_screen) / factor;
     dst.y = -y_screen;
     dst.w = width;
     dst.h = height;
@@ -109,20 +109,20 @@ void graphics_render_trees(SDL_Texture *tex, int factor)
   }
 }
 
-void scrolling_screen(int x, int y){
+void scrolling_screen(int x, int y)
+{
   x = x - x_screen;
   y = y - y_screen;
-  
-  if (x-4 <= SECURITY_LEFT)
-    x_screen = (x_screen-4 <= 0)? 0 : x_screen-4;
-  if (x+TILE+1 >= SECURITY_RIGHT)
-    x_screen = (x_screen+4 > (MAP_WIDTH*TILE-WIN_WIDTH))? (MAP_WIDTH*TILE-WIN_WIDTH) : x_screen+4;
-  if (y-6 <= SECURITY_TOP)
-    y_screen = (y_screen-6 <= 0)? 0 : y_screen-6;
-  if (y+2*TILE+1 >= SECURITY_BOTTOM)
-    y_screen = (y_screen+6 >= (MAP_HEIGHT*TILE-WIN_HEIGHT))? (MAP_HEIGHT*TILE-WIN_HEIGHT) : y_screen+6;
-}
 
+  if (x - 4 <= SECURITY_LEFT)
+    x_screen = (x_screen - 4 <= 0) ? 0 : x_screen - 4;
+  if (x + TILE + 1 >= SECURITY_RIGHT)
+    x_screen = (x_screen + 4 > (MAP_WIDTH * TILE - WIN_WIDTH)) ? (MAP_WIDTH * TILE - WIN_WIDTH) : x_screen + 4;
+  if (y - 6 <= SECURITY_TOP)
+    y_screen = (y_screen - 6 <= 0) ? 0 : y_screen - 6;
+  if (y + 2 * TILE + 1 >= SECURITY_BOTTOM)
+    y_screen = (y_screen + 6 >= (MAP_HEIGHT * TILE - WIN_HEIGHT)) ? (MAP_HEIGHT * TILE - WIN_HEIGHT) : y_screen + 6;
+}
 
 void graphics_render(void)
 {
@@ -138,14 +138,14 @@ void graphics_render(void)
   graphics_render_background(background);
 
   // We display the background threes
-  for(int i = 2; i>=0; i--)
-    graphics_render_trees(tree[i], (i*2)? i*2 : 1);
+  for (int i = 2; i >= 0; i--)
+    graphics_render_trees(tree[i], (i * 2) ? i * 2 : 1);
 
   map_display();
 
   // FIXME: We display the main character
   animation_render_objects();
-  
+
   scrolling_screen(mario.x, mario.y);
 
   interm = SDL_GetTicks();

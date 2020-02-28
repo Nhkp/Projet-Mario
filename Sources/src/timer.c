@@ -16,8 +16,8 @@
 timer_id_t timer_set(Uint32 delay, void *param)
 {
     //SDL_TimerID my_timer_id = SDL_AddTimer(delay, my_callbackfunc, param);
-    
-   //return my_timer_id;
+
+    //return my_timer_id;
 }
 
 Uint32 my_callbackfunc(Uint32 interval, void *param)
@@ -38,10 +38,10 @@ Uint32 my_callbackfunc(Uint32 interval, void *param)
     event.user = userevent;
 
     SDL_PushEvent(&event);
-    return/*(interval)*/ 0;
+    return /*(interval)*/ 0;
 }
 
-int timer_cancel (timer_id_t timer_id)
+int timer_cancel(timer_id_t timer_id)
 {
     int res = SDL_RemoveTimer(timer_id);
     return res;

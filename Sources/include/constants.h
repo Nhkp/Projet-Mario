@@ -1,9 +1,8 @@
 #ifndef CONSTANTS_IS_DEF
 #define CONSTANTS_IS_DEF
 
-
-#define WIN_WIDTH   1280
-#define WIN_HEIGHT  754
+#define WIN_WIDTH 1280
+#define WIN_HEIGHT 754
 
 #define MAP_WIDTH 50
 #define MAP_HEIGHT 16
@@ -12,11 +11,10 @@
 #define MARIO_INITIAL_POSY 0
 
 #define SECURITY_TOP 128
-#define SECURITY_BOTTOM 754-256
+#define SECURITY_BOTTOM 754 - 256
 #define SECURITY_LEFT 128
-#define SECURITY_RIGHT 1280-512
+#define SECURITY_RIGHT 1280 - 512
 
 #define TILE 64
-
 
 #endif

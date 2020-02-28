@@ -8,11 +8,15 @@
  *
  */
 
-struct list_head {
+struct list_head
+{
 	struct list_head *next, *prev;
 };
 
-#define LIST_HEAD_INIT(name) { &(name), &(name) }
+#define LIST_HEAD_INIT(name) \
+	{                        \
+		&(name), &(name)     \
+	}
 
 #define LIST_HEAD(name) \
 	struct list_head name = LIST_HEAD_INIT(name)
@@ -79,7 +83,7 @@ static inline void list_add_tail(struct list_head *new, struct list_head *head)
  * This is only for internal list manipulation where we know
  * the prev/next entries already!
  */
-static inline void __list_del(struct list_head * prev, struct list_head * next)
+static inline void __list_del(struct list_head *prev, struct list_head *next)
 {
 	next->prev = prev;
 	prev->next = next;
@@ -103,9 +107,9 @@ static inline void list_del(struct list_head *entry)
  * @pos:	the &struct list_head to use as a loop cursor.
  * @head:	the head for your list.
  */
-#define list_for_each_safe(pos, head) \
+#define list_for_each_safe(pos, head)                                          \
 	for (struct list_head *pos = (head)->next, *_n = pos->next; pos != (head); \
-		pos = _n, _n = pos->next)
+		 pos = _n, _n = pos->next)
 
 /**
  * list_entry - get the struct for this entry
@@ -114,7 +118,7 @@ static inline void list_del(struct list_head *entry)
  * @member:	the name of the list_struct within the struct.
  */
 #define list_entry(ptr, type, member) \
-        (type*) ((char*) ptr - (char*) &((type*)0)->member)
+	(type *)((char *)ptr - (char *)&((type *)0)->member)
 
 /**
  * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
@@ -123,11 +127,11 @@ static inline void list_del(struct list_head *entry)
  * @head:	the head for your list.
  * @member:	the name of the list_struct within the struct.
  */
-#define list_for_each_entry_safe(type, pos, head, member)		\
-	for (type *pos = list_entry((head)->next, type, member),	\
-		*_n = list_entry(pos->member.next, type, member);	\
-	     &pos->member != (head); 					\
-	     pos = _n, _n = list_entry(_n->member.next, type, member))
+#define list_for_each_entry_safe(type, pos, head, member)       \
+	for (type *pos = list_entry((head)->next, type, member),    \
+			  *_n = list_entry(pos->member.next, type, member); \
+		 &pos->member != (head);                                \
+		 pos = _n, _n = list_entry(_n->member.next, type, member))
 
 /**
  * list_for_each_entry_safe_continue
@@ -140,11 +144,10 @@ static inline void list_del(struct list_head *entry)
  * Iterate over list of given type, continuing after current point,
  * safe against removal of list entry.
  */
-#define list_for_each_entry_safe_after(type, pos, prev, head, member)	\
-        for (type *pos = list_entry((prev)->member.next, type, member),	\
-		*__n = list_entry(pos->member.next, type, member);	\
-	     &pos->member != (head);					\
-	     pos = __n, __n = list_entry(__n->member.next, type, member))
-
+#define list_for_each_entry_safe_after(type, pos, prev, head, member) \
+	for (type *pos = list_entry((prev)->member.next, type, member),   \
+			  *__n = list_entry(pos->member.next, type, member);      \
+		 &pos->member != (head);                                      \
+		 pos = __n, __n = list_entry(__n->member.next, type, member))
 
 #endif
