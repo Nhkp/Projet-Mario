@@ -14,7 +14,7 @@ int isInside(dynamic_object_t *obj1, map_object_t obj2 ) {
 }
 
 int collision(dynamic_object_t *obj, int direction){
-    int d = map_get(obj->x / TILE, (obj->y / TILE)+2);
+    int d2 = map_get(obj->x / TILE, (obj->y / TILE)+2);
     int u = map_get(obj->x / TILE, (obj->y / TILE));
     int l = map_get((obj->x / TILE), obj->y / TILE);
     int dl = map_get((obj->x / TILE), (obj->y / TILE)+1);
@@ -26,15 +26,14 @@ int collision(dynamic_object_t *obj, int direction){
     switch (direction)
     {
     case UP:
-        if (tab[u].type == MAP_OBJECT_AIR || !u)
-            //map_set(1, obj->x / TILE, (obj->y / TILE));
+        if (!tab[u].type || !u)
             return 0;
         else return tab[u].type;
         break;
-    case DOWN:
-        if (!tab[d].type || !d)
+    case DOWN2:
+        if (!tab[d2].type || !d2)
             return 0;
-        else return tab[d].type;
+        else return tab[d2].type;
         break;
     case LEFT:
         if(!(tab[l].type || !l))

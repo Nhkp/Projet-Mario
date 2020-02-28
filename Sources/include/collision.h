@@ -7,7 +7,7 @@
 
 enum {
 UP,
-DOWN,
+DOWN2,
 LEFT,
 RIGHT,
 UP_RIGHT,

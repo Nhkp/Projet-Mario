@@ -3,28 +3,7 @@
 
 #include <SDL.h>
 #include "constants.h"
-
-enum {
-MAP_OBJECT_AIR,
-MAP_OBJECT_SOLID,
-MAP_OBJECT_SEMI_SOLID,
-MAP_OBJECT_NUM,
-MAP_OBJECT_LIQUID,
-MAP_OBJECT_COLLECTIBLE,
-MAP_OBJECT_DESTRUCTIBLE,
-MAP_OBJECT_EXPLOSIVE,
-MAP_OBJECT_TRANSPARENT
-};
-
-typedef struct {
-   int type;
-   int type2;
-   SDL_Texture *tex;
-   int nb_sprites;
-   SDL_Rect dst;
-   SDL_Rect tab[16];
-   int anim_next_step;
-} map_object_t;
+#include "map_objects.h"
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
 extern map_object_t tab[7];

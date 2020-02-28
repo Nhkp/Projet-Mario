@@ -42,7 +42,7 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
   // gravité
   //printf("%d\n", collision(obj, DOWN));
-  if (collision(obj, DOWN) == 0)
+  if (!collision(obj, DOWN2))
     obj->y += obj->ys/2;
 
 

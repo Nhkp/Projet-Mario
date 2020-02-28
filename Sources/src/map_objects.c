@@ -1,5 +1,5 @@
 #include <unistd.h>
-
+#include "map_objects.h"
 #include "explosion.h"
 #include "map.h"
 #include "constants.h"

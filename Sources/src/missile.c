@@ -8,7 +8,7 @@
 #include "mario.h"
 #include "collision.h"
 #include "constants.h"
-#include "tnt.h"
+#include "map_objects.h"
 
 dynamic_object_t bird_shot;
 
