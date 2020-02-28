@@ -24,15 +24,21 @@ void animation_missile_add (dynamic_object_t *obj,int x, int y, int dir)
 void animation_missile_one_step (dynamic_object_t *obj)
 {
     obj->xs = 8;
-    int test = map_get((obj->x)/TILE,(obj->y)/TILE);
     //Le missile avance
-    if(obj->direction && !test)
-        obj->x -= obj->xs;
-    else if (obj->direction)
+    if (obj->direction)
     {
-        switch(tab[test].type)
+        switch(collision(obj, LEFT))
         {
             case 0:
+                obj->x -= obj->xs;
+                break;
+
+            case 1:
+                obj->x -= obj->xs;
+                add_explosion(obj);
+                break;
+
+            case 2:
                 obj->x -= obj->xs;
                 add_explosion(obj);
                 break;
