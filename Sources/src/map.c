@@ -84,12 +84,13 @@ void map_new(int width, int height){
     //blocs libres
     map_set(1, 6, 13);
     map_set(1, 4, 14);
+    map_set(1, 8, 12);
 
     //escalier
     map_set(1, 13, 11);
     map_set(1, 14, 10);
     map_set(1, 15, 9);
-
+    
     //TNT
     map_set(6, 20, 13);
 
@@ -98,9 +99,6 @@ void map_new(int width, int height){
     map_set(1, 21, 12);
     map_set(1, 21, 13);
     map_set(1, 21, 14);
-
-    map_set(1, 18, 12);
-
 
 }
 

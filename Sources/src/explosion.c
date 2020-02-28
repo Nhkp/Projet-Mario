@@ -23,5 +23,5 @@ void add_explosion2(int x, int y){
     dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
     object_object_init(tmp, &explosion_sprite, OBJECT_TYPE_EXPLOSION, x, y);
     animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste
-    printf("++++=========ajout explo : %p\n",tmp);
+    //printf("++++=========ajout explo : %p\n",tmp);
 }

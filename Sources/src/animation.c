@@ -90,7 +90,7 @@ void animation_one_step (int space, int up, int down, int left, int right, int o
             else
                 animation_missile_add(tmp, mario.x+32, mario.y, mario.direction);
             
-            printf("ajout list : %p\n", tmp);
+            //printf("ajout list : %p\n", tmp);
             k++;
         }
 
@@ -129,7 +129,7 @@ void animation_clean (void)
     {
         if (/*(obj != &mario && obj->x > MAP_WIDTH*TILE) ||*/ obj->state == OBJECT_STATE_DESTROYED || obj->anim_next_step == -1)
         {
-            printf("            suppression : %p\n",obj);
+            //printf("            suppression : %p\n",obj);
             animation_mobile_object_del (obj);
         }
     }

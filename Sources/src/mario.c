@@ -7,56 +7,53 @@
 #include "explosion.h"
 #include "collision.h"
 
-extern int mv_background[];
 dynamic_object_t mario;
 
-int update(int dt)
-{
-  return (int)(-(dt * dt / 10) + 8 * dt);
-}
-
-int tmp = -1;
 void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, int right, int space)
 {
-
+  //Vitesses de mouvement
   obj->xs = 4;
   obj->ys = 16;
-  int test = map_get(obj->x / 64, (obj->y / 64)+2);
  
+  //Saut
   static int dt;
   static int jumping;
   static int saving;
-  if (up && !obj->state) 
+  int test = map_get(obj->x / TILE, (obj->y / TILE)+2);
+  if (up && !obj->state && !collision(obj, UP)) 
   {
-    obj->y -= obj->ys;
-    dt = 0;
-
-    saving = obj->y;
+    obj->y -= obj->ys*1.5;
     obj->state = OBJECT_STATE_IN_AIR;
+    dt = 0;
+    saving = obj->y;
     jumping = 1;
-  }else if(jumping == 1)
+  }
+  else if(jumping == 1)
   {
-    if(dt >100 || test){
+    if(dt > TILE || test){
       dt = 0;
       jumping = 0;
     }else{
     obj->y = saving - update(dt);
     dt ++;}
   }
-  
   if (test)
     obj->state = OBJECT_STATE_NORMAL;
 
   // gravité
-  if (!collision(obj, DOWN))
-    obj->y += obj->ys;
+  printf("%d\n", collision(obj, DOWN));
+  if (collision(obj, DOWN) == 0)
+    obj->y += obj->ys/2;
 
 
   //LEFT
-  if (left && !collision(obj, LEFT))
+  if (left && !collision(obj, LEFT) && !collision(obj, DOWN_LEFT))
   {
     obj->direction = 1;
-    obj->x -= obj->xs;
+    if(jumping && !collision(obj, UP_LEFT))
+      obj->x -= obj->xs;
+    else if (!jumping)
+      obj->x -= obj->xs;
 
     obj->anim_next_step = (obj->anim_next_step < obj->sprite->nb_step - 1) ? obj->anim_next_step + 1 : 0;
   }
@@ -64,10 +61,13 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
     obj->anim_next_step = (obj->anim_next_step < obj->sprite->nb_step - 1) ? obj->anim_next_step + 1 : 0;
 
   //RIGHT
-  if (right && !collision(obj, RIGHT))
+  if (right && !collision(obj, RIGHT) && !collision(obj, DOWN_RIGHT))
   {
     obj->direction = 0;
-    obj->x += obj->xs;
+    if(jumping && !collision(obj, UP_RIGHT))
+      obj->x += obj->xs;
+    else if (!jumping)
+      obj->x += obj->xs;
 
     obj->anim_next_step = (obj->anim_next_step < obj->sprite->nb_step - 1) ? obj->anim_next_step + 1 : 0;
   }
@@ -77,4 +77,10 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
 void animation_mario_one_step(dynamic_object_t *obj)
 {
+}
+
+
+int update(int dt)
+{
+  return (int)(-(dt * dt / 10) + 8 * dt);
 }

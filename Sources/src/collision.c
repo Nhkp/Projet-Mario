@@ -14,35 +14,68 @@ int isInside(dynamic_object_t *obj1, map_object_t obj2 ) {
 }
 
 int collision(dynamic_object_t *obj, int direction){
-    int test = map_get(obj->x / TILE, (obj->y / TILE)+2);
-    int testb = map_get(obj->x / TILE, (obj->y / TILE));
-    int test1 = map_get((obj->x / TILE), obj->y / TILE);
-    int test1b = map_get((obj->x / TILE), (obj->y / TILE)+1);
-    int test2 = map_get((obj->x / TILE)+1, obj->y / TILE);
-    int test2b = map_get((obj->x / TILE)+1, (obj->y / TILE)+1);
+    int d = map_get(obj->x / TILE, (obj->y / TILE)+2);
+    int u = map_get(obj->x / TILE, (obj->y / TILE));
+    int l = map_get((obj->x / TILE), obj->y / TILE);
+    int dl = map_get((obj->x / TILE), (obj->y / TILE)+1);
+    int ul = map_get((obj->x / TILE), (obj->y / TILE)-1);
+    int r = map_get((obj->x / TILE)+1, obj->y / TILE);
+    int dr = map_get((obj->x / TILE)+1, (obj->y / TILE)+1);
+    int ur = map_get((obj->x / TILE)+1, (obj->y / TILE)-1);
 
     switch (direction)
     {
     case UP:
-        if (tab[testb].type == MAP_OBJECT_AIR || !test)
+        if (tab[u].type == MAP_OBJECT_AIR || !u)
             //map_set(1, obj->x / TILE, (obj->y / TILE));
             return 0;
+        else return tab[u].type;
         break;
     case DOWN:
-        if (tab[test].type == MAP_OBJECT_AIR || !test)
+        if (tab[d].type == MAP_OBJECT_AIR || !d)
             return 0;
+        else if (tab[d].type == 0 || tab[d].type == 1)
+            return 1;
         break;
     case LEFT:
-        if((tab[test1].type == MAP_OBJECT_AIR || !test1) && (tab[test1b].type == MAP_OBJECT_AIR || !test1b))
+        if((tab[l].type == MAP_OBJECT_AIR || !l))
             return 0;
+        else if (tab[l].type == 0 || tab[l].type == 1)
+            return 1;
+        break;
+    case DOWN_LEFT:
+        if((tab[dl].type == MAP_OBJECT_AIR || !dl))
+            return 0;
+        else if (tab[dl].type == 0 || tab[dl].type == 1)
+            return 1;
+        break;
+    case UP_LEFT:
+        if((tab[ul].type == MAP_OBJECT_AIR || !ul))
+            return 0;
+        else if (tab[ul].type == 0 || tab[ul].type == 1)
+            return 1;
         break;
     case RIGHT:
-        if((tab[test2].type == MAP_OBJECT_AIR || !test2) && (tab[test2b].type == MAP_OBJECT_AIR || !test2b))
+        if((tab[r].type == MAP_OBJECT_AIR || !r))
             return 0;
+        else if (tab[r].type == 0 || tab[r].type == 1)
+            return 1;
+        break;
+    case DOWN_RIGHT:
+        if((tab[dr].type == MAP_OBJECT_AIR || !dr))
+            return 0;
+        else if (tab[dr].type == 0 || tab[dr].type == 1)
+            return 1;
+        break;
+    case UP_RIGHT:
+        if((tab[ur].type == MAP_OBJECT_AIR || !ur))
+            return 0;
+        else if (tab[ur].type == 0 || tab[ur].type == 1)
+            return 1;
         break;
     default:
         break;
     }
 
-    return 1;
+    return 0;
 }
