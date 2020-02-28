@@ -50,15 +50,21 @@ void animation_missile_one_step (dynamic_object_t *obj)
         }
     }
 
-    int test2 = map_get((obj->x/TILE)+1,(obj->y)/TILE);
     //Le missile avance
-    if(!obj->direction && !test2)
-        obj->x += obj->xs;
-    else if (!obj->direction)
+    if (!obj->direction)
     {
-        switch(tab[test2].type)
+        switch(collision(obj, RIGHT))
         {
             case 0:
+                obj->x += obj->xs;
+                break;
+            
+            case 1:
+                obj->x += obj->xs;
+                add_explosion(obj);
+                break;
+            
+            case 2:
                 obj->x += obj->xs;
                 add_explosion(obj);
                 break;
@@ -70,7 +76,6 @@ void animation_missile_one_step (dynamic_object_t *obj)
 
             default:
                 obj->x += obj->xs;
-                add_explosion(obj);
                 break;
         }
     }

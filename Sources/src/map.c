@@ -59,10 +59,10 @@ void map_object_add(const char* path, int nb_sprites, int type, int type2, int n
 
 void map_new(int width, int height){
     map_allocate(width, height);
-    map_object_add("../images/wall.png", 1, 0, 6, 1);
-    map_object_add("../images/ground.png", 1, 0, 0, 2);
-    map_object_add("../images/flower.png", 1, 2, 6, 3);
-    map_object_add("../images/flower2.png", 1, 2, 6, 4);
+    map_object_add("../images/wall.png", 1, 1, 6, 1);
+    map_object_add("../images/ground.png", 1, 1, 0, 2);
+    map_object_add("../images/flower.png", 1, 0, 6, 3);
+    map_object_add("../images/flower2.png", 1, 0, 6, 4);
     map_object_add("../images/coin.png", 16, 2, 0, 5);
     map_object_add("../images/tnt.png", 1, 6, 7, 6);
 
