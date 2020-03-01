@@ -154,36 +154,66 @@ void map_display()
     }
 }
 
-/*int edit_mode(int up, int down, int left, int right, int ok, int shift, int q){
+
+int j = -1;
+int x = 10;
+int y = 6;
+int i = 1;
+
+int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, int q){
     
-    int x = 6;
-    int y = 6;
-    int i = 1;
-    
-    if (up) y--;
-    if (down) y++;
-    if (left) x--;
-    if (right) x++;
-    if (shift)
-    {
-        i++;
-        if (i > 3) i = 0;
+    map_set(i, x, y);
+
+    if (!edition){
+        j = -1;
+        x = 10;
+        y = 6;
+        i = 1;
+        edition = 1;
     }
-    if (q)
+
+    if (q || ok)
         edition = 0;
-    if (ok)
-        map_set(i, x, y);
+
+
+    if (j%13){
+        if (tab)
+        {
+            i++;
+            if (i>7) i = 1;
+            map_set(i, x, y);
+        }
+        if (up){
+            map_set(save, x, y);
+            save = map_get(x, y-1);
+            y--;
+            map_set(i, x, y);
+        }
+        if (down){
+            map_set(save, x, y);
+            save = map_get(x, y+1);
+            y++;
+            map_set(i, x, y);
+        }
+        if (left){
+            map_set(save, x, y);
+            save = map_get(x-1, y);
+            x--;
+            map_set(i, x, y);
+        }
+        if (right){
+            map_set(save, x, y);
+            save = map_get(x+1, y);
+            x++;
+            map_set(i, x, y);
+        }
+    }
+    j++;
     if (x > MAP_WIDTH-1 || x < 0)
         x=0;
     if (y > MAP_HEIGHT-1 || y < 0)
         y=0;
 
-    tab[map_get(x,y)].dst.x = x-(x_screen/TILE);
-    tab[map_get(x,y)].dst.y = y-(y_screen/TILE);
-    tab[map_get(x,y)].dst.w = TILE;
-    tab[map_get(x,y)].dst.h = TILE;
-    
-    SDL_RenderCopyEx(ren, tab[i].tex, NULL, &tab[map_get(x, y)].dst, 0, 0, 0);
 
-    return 0;
-}*/
+    return save;
+}

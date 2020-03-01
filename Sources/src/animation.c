@@ -64,13 +64,19 @@ void animation_init(void)
     object_init();
 }
 
+int save = -1;
 void animation_one_step(int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
 {
     //Interaction utilisateur/oiseau
-    /*if (e)
-        edit_mode(up, down, left, right, ok, shift, q);
+    if (e){
+        save = edit_mode(map_get(10, 6), up, down, left, right, ok, shift, q);
+    }
+    else if (edition){
+        int tmp = edit_mode(save, up, down, left, right, ok, shift, q);
+        save = tmp;
+    }
     else
-    {*/
+    {
     animation_mario_moves(&mario, up, down, left, right, space);
     //Bidouillage artisanale pour la fréquence de tir de l'oiseau
     if (space && mario.state != OBJECT_STATE_DEAD)
@@ -105,7 +111,7 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
         }
     }
     //printf("\n");
-    //}
+    }
 }
 
 void animation_render_objects(void)

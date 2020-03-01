@@ -15,7 +15,7 @@ int map_get(int x, int y);
 void map_object_add(const char *path, int nb_sprites, int type, int type2, int num);
 
 void map_display();
-int edit_mode(int up, int down, int left, int right, int ok, int shift, int q);
+int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, int q);
 
 extern int edition;
 
