@@ -45,7 +45,7 @@ void animation_missile_one_step(dynamic_object_t *obj)
 
         case 6:
             obj->x -= obj->xs;
-            add_explosion(obj);
+            obj->state = OBJECT_STATE_DESTROYED;
             tnt_explode((int)(obj->x) / TILE, (int)(obj->y) / TILE);
             break;
 
