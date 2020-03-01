@@ -19,52 +19,36 @@ int collision(dynamic_object_t *obj, int direction)
     switch (direction)
     {
     case UP:
-        if (!tab[u].type || !u)
-            return 0;
-        else
-            return tab[u].type;
+        if (!tab[u].type || !u) return 0;
+        else return tab[u].type;
         break;
     case DOWN2:
-        if (!tab[d2].type || !d2)
-            return 0;
-        else
-            return tab[d2].type;
+        if (!tab[d2].type || !d2) return 0;
+        else return tab[d2].type;
         break;
     case LEFT:
-        if (!(tab[l].type || !l))
-            return 0;
-        else
-            return tab[l].type;
+        if (!(tab[l].type || !l)) return 0;
+        else return tab[l].type;
         break;
     case DOWN_LEFT:
-        if ((!tab[dl].type || !dl))
-            return 0;
-        else
-            return tab[dl].type;
+        if ((!tab[dl].type || !dl)) return 0;
+        else return tab[dl].type;
         break;
     case UP_LEFT:
-        if ((!tab[ul].type || !ul))
-            return 0;
-        else
-            return tab[ul].type;
+        if ((!tab[ul].type || !ul)) return 0;
+        else return tab[ul].type;
         break;
     case RIGHT:
-        if ((!tab[r].type || !r))
-            return 0;
-        else
-            return tab[r].type;
+        if (!tab[r].type || !r) return 0;
+        else return tab[r].type;
         break;
     case DOWN_RIGHT:
-        if ((!tab[dr].type || !dr))
-            return 0;
-        else
-            return tab[dr].type;
+        if ((!tab[dr].type || !dr)) return 0;
+        else return tab[dr].type;
         break;
     case UP_RIGHT:
-        if ((!tab[ur].type || !ur))
-            return 0;
-        else
-            return tab[ur].type;
+        if ((!tab[ur].type || !ur)) return 0;
+        else return tab[ur].type;
         break;
     default:
         return 0;

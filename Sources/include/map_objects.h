@@ -24,7 +24,7 @@ typedef struct
    SDL_Texture *tex;
    int nb_sprites;
    SDL_Rect dst;
-   SDL_Rect tab[16];
+   SDL_Rect tab[21];
    int anim_next_step;
 } map_object_t;
 
