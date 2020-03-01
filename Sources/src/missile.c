@@ -43,9 +43,18 @@ void animation_missile_one_step(dynamic_object_t *obj)
             add_explosion(obj);
             break;
 
-        case 6:
+        case 5:
             obj->x -= obj->xs;
             obj->state = OBJECT_STATE_DESTROYED;
+<<<<<<< HEAD
+=======
+            map_set(0, (int)(obj->x) / TILE, (int)(obj->y) / TILE);
+            break;
+
+        case 7:
+            obj->x -= obj->xs;
+            obj->state = OBJECT_STATE_DESTROYED;
+>>>>>>> clement
             tnt_explode((int)(obj->x) / TILE, (int)(obj->y) / TILE);
             break;
 
@@ -60,6 +69,7 @@ void animation_missile_one_step(dynamic_object_t *obj)
     //Le missile avance
     if (!obj->direction)
     {
+        printf("%d\n",collision(obj, RIGHT));
         switch (collision(obj, RIGHT))
         {
         case 0:
@@ -76,7 +86,13 @@ void animation_missile_one_step(dynamic_object_t *obj)
             add_explosion(obj);
             break;
 
-        case 6:
+        case 5:
+            obj->x += obj->xs;
+            obj->state = OBJECT_STATE_DESTROYED;
+            map_set(0, (int)(obj->x / TILE) + 1, (int)(obj->y) / TILE);
+            break;
+
+        case 7:
             obj->x += obj->xs;
             obj->state = OBJECT_STATE_DESTROYED;
             tnt_explode((int)(obj->x / TILE) + 1, (int)(obj->y) / TILE);
