@@ -214,6 +214,6 @@ int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, 
     if (y > MAP_HEIGHT-1 || y < 0)
         y=0;
 
-
+    SDL_Delay(50);
     return save;
 }
