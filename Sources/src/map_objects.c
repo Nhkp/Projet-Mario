@@ -42,5 +42,5 @@ void tnt_explode(int x, int y)
 
     add_explosion2(x * TILE - TILE, y * TILE);
     if (map_get(x - 1, y))
-        map_set(0, -1, y);
+        map_set(0, x - 1, y);
 }
