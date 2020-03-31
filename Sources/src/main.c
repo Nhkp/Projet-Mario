@@ -92,7 +92,7 @@ int main(int argc, char **argv)
   debug_init(debug_flags);
   graphics_init(render_flags, (skin ? skin : DEFAULT_BACKGROUND_SKIN));
   animation_init();
-  sound_init(1, 1);
+  sound_init(1, 0);
 
   for (int quit = 0; !quit;)
   {

@@ -7,6 +7,7 @@
 #include "object.h"
 
 extern dynamic_object_t cursor;
+extern int edition;
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
 extern map_object_t tab[9];
@@ -20,7 +21,6 @@ void map_object_add(const char *path, int nb_sprites, int type, int type2, int n
 void map_display();
 void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int ok, int tabulation, int q);
 
-extern int edition;
-//extern dynamic_object_t *cursor;
+void save_map();
 
 #endif
