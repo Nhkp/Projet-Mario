@@ -124,8 +124,8 @@ void map_new(int width, int height)
     map_set(5, 18, 14);
 
     //Peach 
-    map_set(7, 16, 14);
-    map_set(8, 16, 15);
+    map_set(7, 48, 14);
+    map_set(8, 48, 15);
 
     //TNT
     map_set(6, 20, 14);
