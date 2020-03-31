@@ -22,8 +22,8 @@ CC	:= gcc
 CFLAGS	:= -O3 -Wall -g
 CFLAGS	+= -I./include
 
-CFLAGS	+= $(shell pkg-config SDL2_image --cflags)
-LDLIBS	:= $(shell pkg-config SDL2_image --libs)
+CFLAGS	+= $(shell pkg-config SDL2_image SDL2_mixer --cflags)
+LDLIBS	:= $(shell pkg-config SDL2_image SDL2_mixer --libs)
 
 LDLIBS	+= -lm -lpthread -ldl
 

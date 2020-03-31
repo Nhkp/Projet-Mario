@@ -16,7 +16,9 @@ void map_object_add(const char *path, int nb_sprites, int type, int type2, int n
 
 void map_display();
 int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, int q);
+void edit_mode2(int up, int down, int left, int right, int ok, int tab, int q);
 
 extern int edition;
+//extern dynamic_object_t *cursor;
 
 #endif

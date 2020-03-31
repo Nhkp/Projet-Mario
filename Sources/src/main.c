@@ -13,7 +13,7 @@
 #include "missile.h"
 #include "mario.h"
 #include "map.h"
-//#include "sound.h"
+#include "sound.h"
 
 #define DEFAULT_BACKGROUND_SKIN "trees"
 
@@ -92,7 +92,7 @@ int main(int argc, char **argv)
   debug_init(debug_flags);
   graphics_init(render_flags, (skin ? skin : DEFAULT_BACKGROUND_SKIN));
   animation_init();
-  //sound_init(1, 1);
+  sound_init(1, 1);
 
   for (int quit = 0; !quit;)
   {
@@ -138,6 +138,7 @@ int main(int argc, char **argv)
     // Refresh screen
     graphics_render();
     animation_clean();
+    //sound_clean();
   }
 
   return 0;

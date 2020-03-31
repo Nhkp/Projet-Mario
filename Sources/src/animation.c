@@ -70,10 +70,12 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
     //Interaction utilisateur/oiseau
     if (e){
         save = edit_mode(map_get(10, 6), up, down, left, right, ok, shift, q);
+        //edit_mode2(up, down, left, right, ok, tab, q);
     }
     else if (edition){
         int tmp = edit_mode(save, up, down, left, right, ok, shift, q);
         save = tmp;
+        //edit_mode2(up, down, left, right, ok, tab, q);
     }
     else
     {

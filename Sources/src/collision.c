@@ -14,7 +14,10 @@ int collision(dynamic_object_t *obj, int direction){
     //int u = map_get((obj->x / TILE), (obj->y / TILE)-1);
     
     int l = map_get((obj->x / TILE), obj->y / TILE);
-    int dl = map_get((obj->x / TILE), (obj->y / TILE) + 1);
+    //A retoucher
+    int tmp = floor(((obj->x == TILE)? obj->x-1 : obj->x) / TILE);
+    int dl = map_get(tmp, (obj->y / TILE) + 1);
+    
     int ul = map_get((obj->x / TILE), (obj->y / TILE) - 1);
     int r = map_get((obj->x / TILE) + 1, obj->y / TILE);
     int dr = map_get((obj->x / TILE) + 1, (obj->y / TILE) + 1);
