@@ -122,7 +122,7 @@ int main(int argc, char **argv)
         }
         break;
       case SDL_USEREVENT:
-        evt.user.data1;
+        //evt.user.data1;
         break;
 
       default:;

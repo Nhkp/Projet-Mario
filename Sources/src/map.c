@@ -4,7 +4,9 @@
 #include "graphics.h"
 #include "constants.h"
 #include "animation.h"
+#include "sprite.h"
 
+dynamic_object_t cursor;
 map_object_t tab[9];
 int map[MAP_WIDTH][MAP_HEIGHT];
 
@@ -170,121 +172,49 @@ void map_display()
     }
 }
 
+void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int ok, int tabulation, int q){
 
-int j = -1;
-int x = 10;
-int y = 6;
-int i = 1;
-
-int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, int q){
+    int x = obj->x/TILE;
+    int y = obj->y/TILE;
     
-    map_set(i, x, y);
-
-    if (!edition){
-        j = -1;
-        x = 10;
-        y = 6;
-        i = 1;
-        edition = 1;
-    }
-
-    if (q || ok)
-        edition = 0;
-
-
-    if (j%13){
-        if (tab)
-        {
-            i++;
-            if (i>7) i = 1;
-            map_set(i, x, y);
-        }
-        if (up){
-            map_set(save, x, y);
-            save = map_get(x, y-1);
-            y--;
-            map_set(i, x, y);
-        }
-        if (down){
-            map_set(save, x, y);
-            save = map_get(x, y+1);
-            y++;
-            map_set(i, x, y);
-        }
-        if (left){
-            map_set(save, x, y);
-            save = map_get(x-1, y);
-            x--;
-            map_set(i, x, y);
-        }
-        if (right){
-            map_set(save, x, y);
-            save = map_get(x+1, y);
-            x++;
-            map_set(i, x, y);
-        }
-    }
-    j++;
-    if (x > MAP_WIDTH-1 || x < 0)
-        x=0;
-    if (y > MAP_HEIGHT-1 || y < 0)
-        y=0;
-
-    SDL_Delay(50);
-    return save;
-}
-
-void edit_mode2(int up, int down, int left, int right, int ok, int tab, int q){
-
-    dynamic_object_t *cursor = malloc(sizeof(dynamic_object_t));
-    object_object_init(&cursor, &mario_sprite, OBJECT_TYPE_TEXT, WIN_WIDTH/2, WIN_HEIGHT/2);
-
-    int x = 10;
-    int y = 6;
-    int i = 1;
-    
-
     edition = 1;
-
 
     if (q)
         edition = 0;
 
-    if (tab)
+    if (tabulation)
     {
-        i++;
-        if (i > 7)
-            i = 1;
+        obj->anim_next_step++;
+        if (obj->anim_next_step > 9)
+            obj->anim_next_step = 1;
     }
     if (up)
-    {
         y--;
-    }
     if (down)
-    {
         y++;
-    }
     if (left)
-    {
         x--;
-    }
     if (right)
-    {
         x++;
-    }
 
     if (x > MAP_WIDTH - 1 || x < 0)
         x = 0;
     if (y > MAP_HEIGHT - 1 || y < 0)
         y = 0;
 
-    cursor->x = x*TILE;
-    cursor->y = y*TILE;
-    //cursor->sprite->tex = tab[i].tex;
+    obj->x = x*TILE;
+    obj->y = y*TILE;
+    cursor_sprite.nb_img = tab[obj->anim_next_step].nb_sprites;
+    if (cursor_sprite.nb_img > 1){
+        for (int i = 0; i < tab[obj->anim_next_step].nb_sprites; i++){
+            cursor_sprite.tab[i] = tab[obj->anim_next_step].tab[i];
+        }
+    }
+    else cursor_sprite.tex = tab[obj->anim_next_step].tex;
 
     if(ok){
-        map_set(i, x, y);
+        map_set(obj->anim_next_step, x, y);
     }
-    //graphics_render_object(cursor);
 
+    SDL_Delay(50);
 }

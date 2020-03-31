@@ -12,9 +12,7 @@
 sprite_t bird_shot_sprite;
 sprite_t mario_sprite;
 sprite_t explosion_sprite;
-
-sprite_t wall_sprite;
-sprite_t ground_sprite;
+sprite_t cursor_sprite;
 
 void sprite_init(void)
 {

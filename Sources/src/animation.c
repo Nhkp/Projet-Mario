@@ -57,62 +57,50 @@ void animation_init(void)
 {
     INIT_LIST_HEAD(&obj_list);
 
+    object_object_init(&cursor, &cursor_sprite, OBJECT_TYPE_TEXT, WIN_WIDTH/2, WIN_HEIGHT/2);
+    cursor.anim_next_step = 1;
+    animation_mobile_object_add(&cursor);
+
     object_object_init(&mario, &mario_sprite, OBJECT_TYPE_MARIO, MARIO_INITIAL_POSX, MARIO_INITIAL_POSY);
     animation_mobile_object_add(&mario);
+
     map_new(MAP_WIDTH, MAP_HEIGHT);
 
     object_init();
 }
 
 int save = -1;
-void animation_one_step(int space, int up, int down, int left, int right, int ok, int shift, int q, int e)
+void animation_one_step(int space, int up, int down, int left, int right, int ok, int tab, int q, int e)
 {
-    //Interaction utilisateur/oiseau
-    if (e){
-        save = edit_mode(map_get(10, 6), up, down, left, right, ok, shift, q);
-        //edit_mode2(up, down, left, right, ok, tab, q);
-    }
-    else if (edition){
-        int tmp = edit_mode(save, up, down, left, right, ok, shift, q);
-        save = tmp;
-        //edit_mode2(up, down, left, right, ok, tab, q);
+    if (e || edition){
+        edit_mode(&cursor, up, down, left, right, ok, tab, q);
     }
     else
     {
-    animation_mario_moves(&mario, up, down, left, right, space);
-    //Bidouillage artisanale pour la fréquence de tir de l'oiseau
-    if (space && mario.state != OBJECT_STATE_DEAD)
-        k++;
+        animation_mario_moves(&mario, up, down, left, right, space);
+        //Bidouillage artisanale pour la fréquence de tir de l'oiseau
+        if (space && mario.state != OBJECT_STATE_DEAD)
+            k++;
 
-    if (k % 6 == 0)
-    {
-        dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
-        if (tmp == NULL) // Si l'allocation a échoué
+        if (k % 6 == 0)
         {
-            exit(0); // On arrête immédiatement le programme
+            dynamic_object_t *tmp = malloc(sizeof(dynamic_object_t));
+            if (tmp == NULL) // Si l'allocation a échoué
+                exit(0); // On arrête immédiatement le programme
+
+            if (mario.direction)
+                animation_missile_add(tmp, mario.x - 32, mario.y, mario.direction);
+            else
+                animation_missile_add(tmp, mario.x + 32, mario.y, mario.direction);
+            k++;
         }
 
-        if (mario.direction)
-            animation_missile_add(tmp, mario.x - 32, mario.y, mario.direction);
-        else
-            animation_missile_add(tmp, mario.x + 32, mario.y, mario.direction);
-
-        //printf("ajout list : %p\n", tmp);
-        k++;
-    }
-
-    // printf("Liste d'objets : ");
-    for_all_objects(obj)
-    {
-
-        //printf("%p | ", obj);
-        animate_func_t func = object_class[obj->type].animate_func;
-        if (func != NULL)
+        for_all_objects(obj)
         {
-            func(obj);
+            animate_func_t func = object_class[obj->type].animate_func;
+            if (func != NULL)
+                func(obj);
         }
-    }
-    //printf("\n");
     }
 }
 
@@ -121,25 +109,16 @@ void animation_render_objects(void)
     graphics_render_object(&mario);
 
     for_all_objects(obj)
-    {
         if (obj != &mario)
-        {
-            //printf("animation : %p\n",obj);
             graphics_render_object(obj);
-        }
-    }
+
 }
 
 void animation_clean(void)
 {
     for_all_objects(obj)
-    {
         if (/*(obj != &mario && obj->x > MAP_WIDTH*TILE) ||*/ obj->state == OBJECT_STATE_DESTROYED || obj->anim_next_step == -1)
-        {
-            //printf("            suppression : %p\n",obj);
             animation_mobile_object_del(obj);
-        }
-    }
 }
 
 /*void animation_timer_add(dynamic_object_t *obj, Uint32 delay)

@@ -16,6 +16,8 @@ typedef struct
 
 extern sprite_t mario_sprite;
 extern sprite_t bird_shot_sprite;
+extern sprite_t explosion_sprite;
+extern sprite_t cursor_sprite;
 
 void sprite_init(void);
 
