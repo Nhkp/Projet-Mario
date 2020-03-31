@@ -106,12 +106,9 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
 
 void animation_render_objects(void)
 {
-    graphics_render_object(&mario);
-
-    for_all_objects(obj)
-        if (obj != &mario)
-            graphics_render_object(obj);
-
+    if (edition) graphics_render_object(&cursor);
+    for_all_objects(obj) 
+        if (obj != &cursor) graphics_render_object(obj);
 }
 
 void animation_clean(void)

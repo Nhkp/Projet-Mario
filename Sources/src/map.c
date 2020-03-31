@@ -173,48 +173,44 @@ void map_display()
 }
 
 void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int ok, int tabulation, int q){
+    int x, y;
 
-    int x = obj->x/TILE;
-    int y = obj->y/TILE;
-    
-    edition = 1;
-
-    if (q)
-        edition = 0;
-
-    if (tabulation)
-    {
-        obj->anim_next_step++;
-        if (obj->anim_next_step > 9)
-            obj->anim_next_step = 1;
+    if (!edition){
+        x = 9;
+        y = 9;
+        edition = 1;
     }
-    if (up)
-        y--;
-    if (down)
-        y++;
-    if (left)
-        x--;
-    if (right)
-        x++;
+    else
+    {
+        x = obj->x/TILE;
+        y = obj->y/TILE;
+    }
 
-    if (x > MAP_WIDTH - 1 || x < 0)
-        x = 0;
-    if (y > MAP_HEIGHT - 1 || y < 0)
-        y = 0;
+    //Test de sortie
+    if (q) edition = 0;
 
+    //Sélection de la texture
+    if (tabulation) (obj->anim_next_step + 1 > 9)? obj->anim_next_step = 1 : obj->anim_next_step++;
+
+    //Déplacement du curseur
+    if (up) y--;
+    if (down) y++;
+    if (left) x--;
+    if (right) x++;
+    if (x > MAP_WIDTH - 1 || x < 0) x = 0;
+    if (y > MAP_HEIGHT - 1 || y < 0) y = 0;
     obj->x = x*TILE;
     obj->y = y*TILE;
+
+    //Synchro sprite
     cursor_sprite.nb_img = tab[obj->anim_next_step].nb_sprites;
-    if (cursor_sprite.nb_img > 1){
-        for (int i = 0; i < tab[obj->anim_next_step].nb_sprites; i++){
+    if (cursor_sprite.nb_img > 1)
+        for (int i = 0; i < tab[obj->anim_next_step].nb_sprites; i++)
             cursor_sprite.tab[i] = tab[obj->anim_next_step].tab[i];
-        }
-    }
     else cursor_sprite.tex = tab[obj->anim_next_step].tex;
 
-    if(ok){
-        map_set(obj->anim_next_step, x, y);
-    }
+    //Application de la texture
+    if(ok) map_set(obj->anim_next_step, x, y);
 
     SDL_Delay(50);
 }
