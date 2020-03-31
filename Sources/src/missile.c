@@ -9,6 +9,7 @@
 #include "collision.h"
 #include "constants.h"
 #include "map_objects.h"
+#include "sound.h"
 
 dynamic_object_t bird_shot;
 
@@ -19,6 +20,7 @@ void animation_missile_add(dynamic_object_t *obj, int x, int y, int dir)
     obj->direction = dir;
     animation_mobile_object_add(obj);
     //printf("    ajout laser : %p\n",obj);
+    play_sound(SOUND_SHOT);
 }
 
 void animation_missile_one_step(dynamic_object_t *obj)

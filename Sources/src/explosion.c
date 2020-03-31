@@ -1,6 +1,7 @@
 #include "animation.h"
 #include "object.h"
 #include "explosion.h"
+#include "sound.h"
 
 void animation_explosion(dynamic_object_t *obj)
 {
@@ -18,6 +19,7 @@ void add_explosion(dynamic_object_t *obj)
     animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste
     //printf("        ajout explo : %p\n",tmp);
     obj->state = OBJECT_STATE_DESTROYED;
+    play_sound(SOUND_BOUM);
 }
 
 void add_explosion2(int x, int y)
@@ -26,4 +28,5 @@ void add_explosion2(int x, int y)
     object_object_init(tmp, &explosion_sprite, OBJECT_TYPE_EXPLOSION, x, y);
     animation_mobile_object_add(tmp); //Ajout de l'explosion dans la liste
     //printf("++++=========ajout explo : %p\n",tmp);
+    play_sound(SOUND_BOUM);
 }
