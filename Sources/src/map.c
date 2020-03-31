@@ -3,6 +3,7 @@
 #include "map.h"
 #include "graphics.h"
 #include "constants.h"
+#include "animation.h"
 
 map_object_t tab[7];
 int map[MAP_WIDTH][MAP_HEIGHT];
@@ -225,4 +226,59 @@ int edit_mode(int save, int up, int down, int left, int right, int ok, int tab, 
 
     SDL_Delay(50);
     return save;
+}
+
+void edit_mode2(int up, int down, int left, int right, int ok, int tab, int q){
+
+    dynamic_object_t *cursor = malloc(sizeof(dynamic_object_t));
+    object_object_init(&cursor, &mario_sprite, OBJECT_TYPE_TEXT, WIN_WIDTH/2, WIN_HEIGHT/2);
+
+    int x = 10;
+    int y = 6;
+    int i = 1;
+    
+
+    edition = 1;
+
+
+    if (q)
+        edition = 0;
+
+    if (tab)
+    {
+        i++;
+        if (i > 7)
+            i = 1;
+    }
+    if (up)
+    {
+        y--;
+    }
+    if (down)
+    {
+        y++;
+    }
+    if (left)
+    {
+        x--;
+    }
+    if (right)
+    {
+        x++;
+    }
+
+    if (x > MAP_WIDTH - 1 || x < 0)
+        x = 0;
+    if (y > MAP_HEIGHT - 1 || y < 0)
+        y = 0;
+
+    cursor->x = x*TILE;
+    cursor->y = y*TILE;
+    //cursor->sprite->tex = tab[i].tex;
+
+    if(ok){
+        map_set(i, x, y);
+    }
+    //graphics_render_object(cursor);
+
 }
