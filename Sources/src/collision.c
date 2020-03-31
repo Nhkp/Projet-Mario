@@ -5,10 +5,14 @@
 #include "collision.h"
 #include "map_objects.h"
 
-int collision(dynamic_object_t *obj, int direction)
-{
-    int d2 = map_get(obj->x / TILE, (obj->y / TILE) + 2);
-    int u = map_get(obj->x / TILE, (obj->y / TILE));
+int collision(dynamic_object_t *obj, int direction){
+    int d2a = map_get((obj->x + 16) / TILE, (obj->y / TILE) + 2);
+    int d2b = map_get((obj->x + TILE-16) / TILE, (obj->y / TILE) + 2);
+    
+    int ua = map_get((obj->x) / TILE, (obj->y / TILE));
+    int ub = map_get((obj->x + TILE) / TILE, (obj->y / TILE));
+    //int u = map_get((obj->x / TILE), (obj->y / TILE)-1);
+    
     int l = map_get((obj->x / TILE), obj->y / TILE);
     int dl = map_get((obj->x / TILE), (obj->y / TILE) + 1);
     int ul = map_get((obj->x / TILE), (obj->y / TILE) - 1);
@@ -19,12 +23,14 @@ int collision(dynamic_object_t *obj, int direction)
     switch (direction)
     {
     case UP:
-        if (!tab[u].type || !u) return 0;
-        else return tab[u].type;
+        if ((!tab[ua].type && !tab[ub].type) || (!ua && !ub)) return 0;
+        else if (ua) return tab[ua].type;
+        else return tab[ub].type;
         break;
     case DOWN2:
-        if (!tab[d2].type || !d2) return 0;
-        else return tab[d2].type;
+        if ((!tab[d2a].type && !tab[d2b].type) || (!d2a && !d2b)) return 0;
+        else if (d2a) return tab[d2a].type;
+        else return tab[d2b].type;
         break;
     case LEFT:
         if (!(tab[l].type || !l)) return 0;

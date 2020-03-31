@@ -4,7 +4,7 @@
 #include "graphics.h"
 #include "constants.h"
 
-map_object_t tab[7];
+map_object_t tab[9];
 int map[MAP_WIDTH][MAP_HEIGHT];
 
 int edition = 0;
@@ -90,6 +90,8 @@ void map_new(int width, int height)
     map_object_add("../images/flower2.png", 1, 0, 6, 4);
     map_object_add("../images/coin.png", 21, 5, 6, 5);
     map_object_add("../images/tnt.png", 1, 7, 6, 6);
+    map_object_add("../images/peach1.png", 1, 7, 6, 7);
+    map_object_add("../images/peach2.png", 1, 7, 6, 8);
 
     //Murs
     for (int i = 0; i < height; i++)
@@ -105,29 +107,33 @@ void map_new(int width, int height)
     }
 
     //fleurs
-    map_set(3, 9, 14);
-    map_set(4, 12, 14);
+    map_set(3, 9, 15);
+    map_set(4, 12, 15);
 
     //blocs libres
-    map_set(1, 6, 13);
-    map_set(1, 4, 14);
-    map_set(1, 8, 12);
+    map_set(1, 6, 14);
+    map_set(1, 4, 15);
+    map_set(1, 8, 13);
 
     //escalier
-    map_set(1, 13, 11);
-    map_set(1, 14, 10);
-    map_set(1, 15, 9);
+    map_set(1, 13, 12);
+    map_set(1, 14, 11);
+    map_set(1, 15, 10);
 
-    map_set(5, 18, 13);
+    map_set(5, 18, 14);
+
+    //Peach 
+    map_set(7, 16, 14);
+    map_set(8, 16, 15);
 
     //TNT
-    map_set(6, 20, 13);
+    map_set(6, 20, 14);
 
-    map_set(1, 20, 12);
-    map_set(1, 20, 14);
-    map_set(1, 21, 12);
+    map_set(1, 20, 13);
+    map_set(1, 20, 15);
     map_set(1, 21, 13);
     map_set(1, 21, 14);
+    map_set(1, 21, 15);
 }
 
 void map_display()

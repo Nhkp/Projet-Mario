@@ -66,7 +66,6 @@ void animation_missile_one_step(dynamic_object_t *obj)
     //Le missile avance
     if (!obj->direction)
     {
-        printf("%d\n",collision(obj, RIGHT));
         switch (collision(obj, RIGHT))
         {
         case 0:

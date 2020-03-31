@@ -6,7 +6,7 @@
 #include "map_objects.h"
 
 extern int map[MAP_WIDTH][MAP_HEIGHT];
-extern map_object_t tab[7];
+extern map_object_t tab[9];
 
 void map_new(int width, int height);
 void map_allocate(int width, int height);

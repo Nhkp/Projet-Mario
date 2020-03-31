@@ -49,7 +49,7 @@ void graphics_init(Uint32 render_flags, char *background_skin)
       exit_with_error("IMG_LoadTexture");
 
     // Load background trees
-    for (int i = 0; i < 3; i++) //Peut poser problème si on veut changer l'arrière plan
+    for (int i = 0; i < 3; i++)
     {
       sprintf(name, "../images/%s-%d.png", background_skin, i);
       tree[i] = IMG_LoadTexture(ren, name);
@@ -114,14 +114,14 @@ void scrolling_screen(int x, int y)
   x = x - x_screen;
   y = y - y_screen;
 
-  if (x - 4 <= SECURITY_LEFT)
-    x_screen = (x_screen - 4 <= 0) ? 0 : x_screen - 4;
-  if (x + TILE + 1 >= SECURITY_RIGHT)
+  if (x /*- 4 */< SECURITY_LEFT)
+    x_screen = (x_screen - 4 < 0) ? 0 : x_screen - 4;
+  if (x + TILE/* + 1*/ > SECURITY_RIGHT)
     x_screen = (x_screen + 4 > (MAP_WIDTH * TILE - WIN_WIDTH)) ? (MAP_WIDTH * TILE - WIN_WIDTH) : x_screen + 4;
-  if (y - 6 <= SECURITY_TOP)
-    y_screen = (y_screen - 6 <= 0) ? 0 : y_screen - 6;
-  if (y + 2 * TILE + 1 >= SECURITY_BOTTOM)
-    y_screen = (y_screen + 6 >= (MAP_HEIGHT * TILE - WIN_HEIGHT)) ? (MAP_HEIGHT * TILE - WIN_HEIGHT) : y_screen + 6;
+  if (y/* - 6*/ < SECURITY_TOP)
+    y_screen = (y_screen - 6 < 0) ? 0 : y_screen - 6;
+  if (y + 2 * TILE /*+ 1*/ > SECURITY_BOTTOM)
+    y_screen = (y_screen + 6 > (MAP_HEIGHT * TILE - WIN_HEIGHT)) ? (MAP_HEIGHT * TILE - WIN_HEIGHT) : y_screen + 6;
 }
 
 void graphics_render(void)
