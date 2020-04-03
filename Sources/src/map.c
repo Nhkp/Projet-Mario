@@ -216,10 +216,11 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
 }
 
 void save_map(){
+    /*
     int fd = open("../maps/test", O_RDWR | O_CREAT);
 
     int tmp = map_width();
     write(&fd, &tmp, 1);
     tmp = map_heigth();
-    write(&fd, &tmp, 1);
+    write(&fd, &tmp, 1);*/
 }

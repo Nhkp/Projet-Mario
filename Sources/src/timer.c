@@ -2,6 +2,20 @@
 #include "object.h"
 #include "animation.h"
 
+
+int check_laser()
+{
+    static Uint32 laser_delay = 0;
+    Uint32 actualTime = SDL_GetTicks();
+    if (actualTime-laser_delay>750)
+    {
+        laser_delay = actualTime;
+       return 1;
+    }
+    return 0;
+
+}
+
 /*int timer_init(void)
 {
     Uint32 delay = 0;
