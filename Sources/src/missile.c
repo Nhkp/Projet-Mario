@@ -16,15 +16,12 @@ dynamic_object_t bird_shot;
 
 void animation_missile_add(dynamic_object_t *obj, int x, int y, int dir)
 {
-    if (check_laser()) //timer du laser
-    {
     //Init du laser et ajout a la liste
     object_object_init(obj, &bird_shot_sprite, OBJECT_TYPE_MISSILE, x, y);
     obj->direction = dir;
     animation_mobile_object_add(obj);
     //printf("    ajout laser : %p\n",obj);
     play_sound(SOUND_SHOT);
-    }
 }
 
 void animation_missile_one_step(dynamic_object_t *obj)
