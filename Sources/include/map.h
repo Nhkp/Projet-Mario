@@ -22,5 +22,8 @@ void map_display();
 void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int ok, int tabulation, int q);
 
 void save_map();
+int map_width();
+int map_heigth();
+int map_objects();
 
 #endif

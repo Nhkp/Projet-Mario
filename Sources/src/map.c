@@ -40,6 +40,14 @@ int map_get(int x, int y)
     return map[x][y];
 }
 
+int map_width(){
+    return MAP_WIDTH;
+}
+
+int map_heigth(){
+    return MAP_HEIGTH;
+}
+
 void map_object_add(const char *path, int nb_sprites, int type, int type2, int num)
 {
     map_object_t tmp;
@@ -216,7 +224,7 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
 }
 
 void save_map(){
-    int fd = open("../maps/test", O_RDWR | O_CREAT);
+    int fd = creat("../maps/test", 0666);
 
     int tmp = map_width();
     write(&fd, &tmp, 1);
