@@ -1,3 +1,4 @@
+#include "animation.h"
 #include "bird.h"
 #include "mario.h"
 #include "graphics.h"
@@ -6,6 +7,7 @@
 #include "missile.h"
 #include "map.h"
 #include "constants.h"
+#include "sprite.h"
 
 static LIST_HEAD(obj_list); //Initialisation de la file d'objets
 

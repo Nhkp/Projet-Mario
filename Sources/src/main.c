@@ -117,6 +117,8 @@ int main(int argc, char **argv)
           // ESC : we quit!
           quit = 1;
           break;
+        case SDLK_s:
+          save_map();
 
         default:;
         }

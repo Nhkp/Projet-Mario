@@ -25,5 +25,9 @@ void save_map();
 int map_width();
 int map_heigth();
 int map_objects();
+char* map_get_name(int i);
+int map_get_frames(int i);
+int map_get_type(int i);
+int map_get_type2(int i);
 
 #endif

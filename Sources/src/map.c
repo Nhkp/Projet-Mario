@@ -1,5 +1,8 @@
 #include <stdlib.h>
+#include <unistd.h>
+#include <fcntl.h>
 #include <SDL_image.h>
+#include <string.h>
 #include "map.h"
 #include "graphics.h"
 #include "constants.h"
@@ -45,7 +48,109 @@ int map_width(){
 }
 
 int map_heigth(){
-    return MAP_HEIGTH;
+    return MAP_HEIGHT;
+}
+
+int map_objects(){
+    int cmpt = 0;
+    for (int i = 0; i < MAP_WIDTH; i++){
+        for (int j = 0; j < MAP_HEIGHT; j++){
+            if (map[i][j]) cmpt++;
+        }
+    }
+
+    return cmpt;
+}
+
+char* map_get_name(int i){
+    char name[25];
+    char *p = name;
+
+    switch(i){
+        case 1:
+            strcpy(name, "../images/wall.png");
+            break;
+        case 2:
+            strcpy(name, "../images/ground.png");
+            break;
+        case 3:
+            strcpy(name, "../images/flower.png");
+            break;
+        case 4:
+            strcpy(name, "../images/flower2.png");
+            break;
+        case 5:
+            strcpy(name, "../images/coin.png");
+            break;
+        case 6:
+            strcpy(name, "../images/tnt.png");
+            break;
+        case 7:
+            strcpy(name, "../images/peach1.png");
+            break;
+        case 8:
+            strcpy(name, "../images/peach2.png");
+            break;
+        default:
+            break;
+    }
+
+    return p;
+}
+
+int map_get_frames(int i){
+    switch(i){
+        case 5:
+            return 21 ;
+        default:
+            return 1;
+    }
+}
+
+int map_get_type(int i){
+    switch(i){
+        case 1:
+            return 1 ;
+        case 2:
+            return 1 ;
+        case 3:
+            return 0 ;
+        case 4:
+            return 0 ;
+        case 5:
+            return 5 ;
+        case 6:
+            return 7 ;
+        case 7:
+            return 7 ;
+        case 8:
+            return 7 ;
+        default:
+            return 0;
+    }
+}
+
+int map_get_type2(int i){
+    switch(i){
+        case 1:
+            return 6 ;
+        case 2:
+            return 0 ;
+        case 3:
+            return 6 ;
+        case 4:
+            return 6 ;
+        case 5:
+            return 6 ;
+        case 6:
+            return 6 ;
+        case 7:
+            return 6 ;
+        case 8:
+            return 6 ;
+        default:
+            return 0;
+    }
 }
 
 void map_object_add(const char *path, int nb_sprites, int type, int type2, int num)
@@ -86,7 +191,6 @@ void map_object_add(const char *path, int nb_sprites, int type, int type2, int n
         tmp.tab[18].x = 2 * TILE; tmp.tab[18].y = TILE;
         tmp.tab[19].x = 3 * TILE; tmp.tab[19].y = TILE;
         tmp.tab[20].x = 4 * TILE; tmp.tab[20].y = TILE;
-       
     }
 
     tab[num] = tmp;
@@ -133,7 +237,7 @@ void map_new(int width, int height)
 
     map_set(5, 18, 14);
 
-    //Peach 
+    //Peach
     map_set(7, 48, 14);
     map_set(8, 48, 15);
 
@@ -224,10 +328,35 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
 }
 
 void save_map(){
+    printf("save\n");
+    int tmp;
+    char tmpc;
     int fd = creat("../maps/test", 0666);
 
-    int tmp = map_width();
-    write(&fd, &tmp, 1);
+    tmp = map_width();
+    write(fd, &tmp, 1);
     tmp = map_heigth();
-    write(&fd, &tmp, 1);
+    write(fd, &tmp, 1);
+    tmp = map_objects();
+    write(fd, &tmp, 1);
+
+    for(int i = 1; i < map_objects()+1; i++){
+        tmpc = *map_get_name(i);
+        write(fd, &tmpc, 1);
+        tmp = map_get_frames(i);
+        write(fd, &tmp, 1);
+        tmp = map_get_type(i);
+        write(fd, &tmp, 1);
+        tmp = map_get_type2(i);
+        write(fd, &tmp, 1);
+    }
+
+    for (int i = 0; i < MAP_WIDTH; i++){
+        for (int j = 0; j < MAP_HEIGHT; j++){
+            tmp = map_get(i, j);
+            write(fd, &tmp, 10);
+        }
+    }
+
+    close(fd);
 }
