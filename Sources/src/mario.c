@@ -13,41 +13,53 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 {
   //Vitesses de mouvement
   obj->xs = 4;
-  obj->ys = 16;
+  obj->ys = 10;
+ 
+  static int jumping = 0; // No jumping = 0, Jumping = 1
+  static int Y_velocity = 0;
+  static int gravity = 1;
+  double deltaT = 0.03; // discretisation, 30 image par secndes 1/30 = 0.03
+  static int t = 0;
+
+
+  int testBlockBas = map_get(obj->x / TILE, (obj->y / TILE) + 2); //BlocGauche
+  testBlockBas += map_get((obj->x / TILE) +1, (obj->y / TILE) + 2);//BlocDroit
+
+  int testBlockHaut = map_get(obj->x / TILE, (obj->y / TILE) ); //BlocGauche
+  testBlockHaut += map_get((obj->x / TILE)+1, (obj->y / TILE) ); //BlocDroit
+
+  if (up && !obj->state && !collision(obj, UP) && jumping ==0) //appuis du boutton
+  { // initialisation des variables
+    obj->y -= Y_velocity;
+    jumping = 1;
+    Y_velocity = 14;
+    gravity = 14;
+    t++;
+  }else if(jumping == 1 && testBlockHaut) //si on est bloqué au dessus
+  {
+    t = 40;
+    obj->y -= Y_velocity - t * deltaT*gravity;
+  
+  }else if(jumping == 1 && testBlockBas) //si on tombe sur un bloc en dessous
+  { //réinitialisation des variables
+    t = 0;
+    jumping = 0;
+    gravity = 1;
+  }
+  else if(jumping == 1) 
+  {
+      obj->y -= Y_velocity - t * deltaT*gravity;
+      t++;
+  }
 
   //Saut
-  static int dt;
-  static int jumping;
-  static int saving;
-  int test = map_get(obj->x / TILE, (obj->y / TILE) + 2);
-  if (up && !obj->state && !collision(obj, UP))
-  {
-    obj->y -= obj->ys * 1.5;
-    obj->state = OBJECT_STATE_IN_AIR;
-    dt = 0;
-    saving = obj->y;
-    jumping = 1;
-  }
-  else if (jumping == 1)
-  {
-    if (dt > TILE || test)
-    {
-      dt = 0;
-      jumping = 0;
-    }
-    else
-    {
-      obj->y = saving - update(dt);
-      dt++;
-    }
-  }
-  if (test)
-    obj->state = OBJECT_STATE_NORMAL;
 
   // gravité
-  //printf("%d\n", collision(obj, DOWN));
-  if (!collision(obj, DOWN2))
-    obj->y += obj->ys / 2;
+  if (!collision(obj, DOWN2) && jumping!=1){
+
+    gravity = (gravity > obj->ys)? obj->ys:gravity+1;
+    obj->y += gravity;
+  }
 
   //LEFT
   if (left && !collision(obj, LEFT) && !collision(obj, DOWN_LEFT))
