@@ -119,6 +119,11 @@ int main(int argc, char **argv)
           break;
         case SDLK_s:
           save_map();
+          break;
+
+        case SDLK_l:
+          load_map();
+          break;
 
         default:;
         }

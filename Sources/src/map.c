@@ -9,17 +9,22 @@
 #include "animation.h"
 #include "sprite.h"
 
+#define in write(fd, buf, sizeof(buf));
+#define out read(fd, &buf, sizeof(buf));
+
 dynamic_object_t cursor;
 map_object_t tab[9];
 int map[MAP_WIDTH][MAP_HEIGHT];
+
+//int **map;
 
 int edition = 0;
 
 void map_allocate(int width, int height)
 {
-    /***map = malloc(width * sizeof(int*));
+    /***map = malloc(width * sizeof(*map));
     for (int i = 0; i < width ; i++){
-        map[i] = malloc(height * sizeof(int));
+        map[i] = malloc(height * sizeof(**map));
     }*/
 
     for (int i = 0; i < width; i++)
@@ -132,24 +137,10 @@ int map_get_type(int i){
 
 int map_get_type2(int i){
     switch(i){
-        case 1:
-            return 6 ;
         case 2:
             return 0 ;
-        case 3:
-            return 6 ;
-        case 4:
-            return 6 ;
-        case 5:
-            return 6 ;
-        case 6:
-            return 6 ;
-        case 7:
-            return 6 ;
-        case 8:
-            return 6 ;
         default:
-            return 0;
+            return 6;
     }
 }
 
@@ -329,34 +320,58 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
 
 void save_map(){
     printf("save\n");
-    int tmp;
-    char tmpc;
+
+    char *buf = calloc(32, sizeof(char));
     int fd = creat("../maps/test", 0666);
 
-    tmp = map_width();
-    write(fd, &tmp, 1);
-    tmp = map_heigth();
-    write(fd, &tmp, 1);
-    tmp = map_objects();
-    write(fd, &tmp, 1);
+    sprintf(buf, "%d\n", map_width()); in;
+    sprintf(buf, "%d\n", map_heigth()); in;
+    sprintf(buf, "%d\n", map_objects()); in;
 
-    for(int i = 1; i < map_objects()+1; i++){
-        tmpc = *map_get_name(i);
-        write(fd, &tmpc, 1);
-        tmp = map_get_frames(i);
-        write(fd, &tmp, 1);
-        tmp = map_get_type(i);
-        write(fd, &tmp, 1);
-        tmp = map_get_type2(i);
-        write(fd, &tmp, 1);
+    for(int i = 0; i < 9; i++){
+        sprintf(buf, "%s\n", map_get_name(i)); in;
+        sprintf(buf, "%d\n", map_get_frames(i)); in;
+        sprintf(buf, "%d\n", map_get_type(i)); in;
+        sprintf(buf, "%d\n", map_get_type2(i)); in;
     }
 
-    for (int i = 0; i < MAP_WIDTH; i++){
-        for (int j = 0; j < MAP_HEIGHT; j++){
-            tmp = map_get(i, j);
-            write(fd, &tmp, 10);
+    write(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
+
+    close(fd);
+}
+
+void load_map(){
+    write(1, "load\n", 6);
+    /*int fd = open("../maps/test", O_RDONLY);
+    char buf[32];
+
+    out; int width = atoi(buf);
+    out; int height = atoi(buf);
+    out; int nb_items = atoi(buf);
+
+
+    for (int i = 1; i < nb_items; i++){
+        char path[32];
+        out; sprintf(path, "%s", buf);
+        out; int frames = atoi(buf);
+        out; int type = atoi(buf);
+        out; int type2 = atoi(buf);
+
+        tab[i].tex = IMG_LoadTexture(ren, path);
+        tab[i].nb_sprites = frames;
+        tab[i].type = type;
+        tab[i].type2 = type2;
+    }
+
+    int map2[width][height];
+    printf("%d && %d && %d\n", width, height, nb_items);
+    read(fd, map2, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
+
+    for(int i = 0; i<width; i++){
+        for(int j=0; j<height; j++){
+            map[i][j] = map2[i][j];
         }
     }
 
-    close(fd);
+    close(fd);*/
 }

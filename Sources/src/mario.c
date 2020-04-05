@@ -39,14 +39,14 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   {
     t = 40;
     obj->y -= Y_velocity - t * deltaT*gravity;
-  
+
   }else if(jumping == 1 && testBlockBas) //si on tombe sur un bloc en dessous
   { //réinitialisation des variables
     t = 0;
     jumping = 0;
     gravity = 1;
   }
-  else if(jumping == 1) 
+  else if(jumping == 1)
   {
       obj->y -= Y_velocity - t * deltaT*gravity;
       t++;
@@ -56,7 +56,6 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
 
   // gravité
   if (!collision(obj, DOWN2) && jumping!=1){
-
     gravity = (gravity > obj->ys)? obj->ys:gravity+1;
     obj->y += gravity;
   }
