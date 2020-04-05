@@ -23,7 +23,7 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
 
 void save_map();
 int map_width();
-int map_heigth();
+int map_height();
 int map_objects();
 char* map_get_name(int i);
 int map_get_frames(int i);

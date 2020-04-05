@@ -123,6 +123,8 @@ int main(int argc, char **argv)
 
         case SDLK_l:
           load_map();
+          mario.x = MARIO_INITIAL_POSX;
+          mario.y = MARIO_INITIAL_POSY;
           break;
 
         default:;
@@ -139,7 +141,6 @@ int main(int argc, char **argv)
     int up = keystates[SDL_SCANCODE_UP], down = keystates[SDL_SCANCODE_DOWN], space = keystates[SDL_SCANCODE_SPACE];
     int left = keystates[SDL_SCANCODE_LEFT], right = keystates[SDL_SCANCODE_RIGHT];
     int ok = keystates[SDL_SCANCODE_RETURN], tab = keystates[SDL_SCANCODE_TAB], q = keystates[SDL_SCANCODE_A], e = keystates[SDL_SCANCODE_E];
-
     animation_one_step(space, up, down, left, right, ok, tab, q, e);
     sound_keep_music();
 
