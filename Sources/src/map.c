@@ -57,14 +57,7 @@ int map_height(){
 }
 
 int map_objects(){
-    int cmpt = 0;
-    for (int i = 0; i < MAP_WIDTH; i++){
-        for (int j = 0; j < MAP_HEIGHT; j++){
-            if (map[i][j]) cmpt++;
-        }
-    }
-
-    return cmpt;
+    return 9;
 }
 
 char* map_get_name(int i){
@@ -336,30 +329,32 @@ void save_map(){
         buf = map_get_type2(i); in;
     }
 
+    //write(fd, tab, 9 * sizeof(map_object_t));
     write(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
 
     close(fd);
 }
 
-void load_map(){
+void load_map(char *map){
     write(1, "load\n", 6);
 
     int buf, fd;
-
-    fd = open("../maps/test", O_RDONLY);
+    char path[18] = {"../maps/"};
+    strcat(path, map);
+    printf("%s\n", path);
+    fd = open(path, O_RDONLY);
 
     out; int width = buf;
     out; int height = buf;
     out; int nb_items = buf;
-    printf("%d && %d && %d\n", width, height, nb_items);
 
-    for (int i = 1; i < 10; i++){
+    for (int i = 1; i < nb_items+1; i++){
         char *path = calloc(32, sizeof(char));
         read(fd, path, 32 * sizeof(char));
         out; int frames = buf;
         out; int type = buf;
         out; int type2 = buf;
-        printf("%d : %s %d && %d && %d\n", i, path, frames, type, type2);
+        //printf("%d : %s %d && %d && %d\n", i, path, frames, type, type2);
 
         tab[i].tex = IMG_LoadTexture(ren, path); free(path);
         tab[i].nb_sprites = frames;
@@ -367,14 +362,25 @@ void load_map(){
         tab[i].type2 = type2;
     }
 
+    /*map_object_t tab2[nb_items];
+    read(fd, tab2, 9 * sizeof(map_object_t));
+
+    for(int i = 1; i<nb_items+1; i++){
+        tab[i].anim_next_step = tab2[i].anim_next_step;
+        tab[i].dst = tab2[i].dst;
+        tab[i].nb_sprites = tab2[i].nb_sprites;
+        for(int j = 0; j<21; j++) tab[i].tab[j] = tab2[i].tab[j];
+        tab[i].tex = tab2[i].tex;
+        tab[i].type2 = tab2[i].type2;
+        tab[i].type = tab2[i].type;
+    }*/
+
     int map2[width][height];
     read(fd, map2, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
 
     for(int i = 0; i<width; i++){
         for(int j=0; j<height; j++){
-            if (map_get(i, j) != map2[i][j]) printf("MERDE\n");
             map_set(map2[i][j], i, j);
-            printf("%d\n", map[i][j]);
         }
     }
 

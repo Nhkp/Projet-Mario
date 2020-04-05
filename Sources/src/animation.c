@@ -55,9 +55,12 @@ void animation_mobile_object_del(dynamic_object_t *obj)
     list_del(&obj->chain);
 }
 
-void animation_init(void)
+void animation_init(char *map_path)
 {
     INIT_LIST_HEAD(&obj_list);
+
+    if (map_path != NULL) load_map(map_path);
+    else map_new(MAP_WIDTH, MAP_HEIGHT);
 
     object_object_init(&cursor, &cursor_sprite, OBJECT_TYPE_TEXT, WIN_WIDTH/2, WIN_HEIGHT/2);
     cursor.anim_next_step = 1;
@@ -66,7 +69,6 @@ void animation_init(void)
     object_object_init(&mario, &mario_sprite, OBJECT_TYPE_MARIO, MARIO_INITIAL_POSX, MARIO_INITIAL_POSY);
     animation_mobile_object_add(&mario);
 
-    map_new(MAP_WIDTH, MAP_HEIGHT);
 
     object_init();
 }
@@ -96,20 +98,20 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
                 animation_missile_add(tmp, mario.x + 32, mario.y, mario.direction);
             k++;
         }
-
         for_all_objects(obj)
         {
             animate_func_t func = object_class[obj->type].animate_func;
             if (func != NULL)
                 func(obj);
         }
+
     }
 }
 
 void animation_render_objects(void)
 {
     if (edition) graphics_render_object(&cursor);
-    for_all_objects(obj) 
+    for_all_objects(obj)
         if (obj != &cursor) graphics_render_object(obj);
 }
 

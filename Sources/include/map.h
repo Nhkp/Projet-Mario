@@ -29,6 +29,6 @@ char* map_get_name(int i);
 int map_get_frames(int i);
 int map_get_type(int i);
 int map_get_type2(int i);
-void load_map();
+void load_map(char *map_path);
 
 #endif

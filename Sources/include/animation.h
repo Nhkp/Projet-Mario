@@ -3,7 +3,7 @@
 
 #include "object.h"
 
-void animation_init(void);
+void animation_init(char *map_path);
 
 void animation_one_step(int space, int up, int down, int left, int right, int ok, int tab, int q, int e);
 

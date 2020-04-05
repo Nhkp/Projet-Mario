@@ -19,6 +19,7 @@
 
 static char *progname;
 static char *skin = NULL;
+static char *map_path = NULL;
 
 void usage(int val)
 {
@@ -76,6 +77,17 @@ int main(int argc, char **argv)
       argv++;
       skin = *argv;
     }
+    else if (!strcmp(*argv, "--load") || !strcmp(*argv, "-l"))
+    {
+      if (argc == 1)
+      {
+        fprintf(stderr, "Error: map name missing\n");
+        usage(1);
+      }
+      argc--;
+      argv++;
+      map_path = *argv;
+    }
     else
     {
       break;
@@ -91,7 +103,7 @@ int main(int argc, char **argv)
 
   debug_init(debug_flags);
   graphics_init(render_flags, (skin ? skin : DEFAULT_BACKGROUND_SKIN));
-  animation_init();
+  animation_init(map_path ? map_path : NULL);
   sound_init(1, 0);
 
   for (int quit = 0; !quit;)
@@ -122,7 +134,7 @@ int main(int argc, char **argv)
           break;
 
         case SDLK_l:
-          load_map();
+          load_map("test");
           mario.x = MARIO_INITIAL_POSX;
           mario.y = MARIO_INITIAL_POSY;
           break;
