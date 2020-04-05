@@ -335,12 +335,12 @@ void save_map(){
     close(fd);
 }
 
-void load_map(char *map){
+void load_map(char *map_path){
     write(1, "load\n", 6);
 
     int buf, fd;
     char path[18] = {"../maps/"};
-    strcat(path, map);
+    strcat(path, map_path);
     printf("%s\n", path);
     fd = open(path, O_RDONLY);
 
@@ -375,14 +375,14 @@ void load_map(char *map){
         tab[i].type = tab2[i].type;
     }*/
 
-    int map2[width][height];
-    read(fd, map2, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
 
-    for(int i = 0; i<width; i++){
+    read(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
+
+    /*for(int i = 0; i<width; i++){
         for(int j=0; j<height; j++){
             map_set(map2[i][j], i, j);
         }
-    }
+    }*/
 
     close(fd);
 }

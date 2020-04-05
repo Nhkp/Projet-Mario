@@ -133,12 +133,6 @@ int main(int argc, char **argv)
           save_map();
           break;
 
-        case SDLK_l:
-          load_map("test");
-          mario.x = MARIO_INITIAL_POSX;
-          mario.y = MARIO_INITIAL_POSY;
-          break;
-
         default:;
         }
         break;
