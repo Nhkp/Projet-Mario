@@ -16,13 +16,11 @@ dynamic_object_t cursor;
 map_object_t tab[9];
 int map[MAP_WIDTH][MAP_HEIGHT];
 
-//int **map;
-
 int edition = 0;
 
 void map_allocate(int width, int height)
 {
-    /***map = malloc(width * sizeof(*map));
+    /*map = malloc(width * sizeof(*map));
     for (int i = 0; i < width ; i++){
         map[i] = malloc(height * sizeof(**map));
     }*/
@@ -319,17 +317,6 @@ void save_map(){
     buf = map_height(); in;
     buf = map_objects(); in;
 
-    for(int i = 1; i < 10; i++){
-        char *c = calloc(32, sizeof(char));
-        strcpy(c, map_get_name(i));
-        write(fd, c, 32 * sizeof(char));
-        free(c);
-        buf = map_get_frames(i); in;
-        buf = map_get_type(i); in;
-        buf = map_get_type2(i); in;
-    }
-
-    //write(fd, tab, 9 * sizeof(map_object_t));
     write(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
 
     close(fd);
@@ -348,41 +335,7 @@ void load_map(char *map_path){
     out; int height = buf;
     out; int nb_items = buf;
 
-    for (int i = 1; i < nb_items+1; i++){
-        char *path = calloc(32, sizeof(char));
-        read(fd, path, 32 * sizeof(char));
-        out; int frames = buf;
-        out; int type = buf;
-        out; int type2 = buf;
-        //printf("%d : %s %d && %d && %d\n", i, path, frames, type, type2);
-
-        tab[i].tex = IMG_LoadTexture(ren, path); free(path);
-        tab[i].nb_sprites = frames;
-        tab[i].type = type;
-        tab[i].type2 = type2;
-    }
-
-    /*map_object_t tab2[nb_items];
-    read(fd, tab2, 9 * sizeof(map_object_t));
-
-    for(int i = 1; i<nb_items+1; i++){
-        tab[i].anim_next_step = tab2[i].anim_next_step;
-        tab[i].dst = tab2[i].dst;
-        tab[i].nb_sprites = tab2[i].nb_sprites;
-        for(int j = 0; j<21; j++) tab[i].tab[j] = tab2[i].tab[j];
-        tab[i].tex = tab2[i].tex;
-        tab[i].type2 = tab2[i].type2;
-        tab[i].type = tab2[i].type;
-    }*/
-
-
-    read(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
-
-    /*for(int i = 0; i<width; i++){
-        for(int j=0; j<height; j++){
-            map_set(map2[i][j], i, j);
-        }
-    }*/
+    read(fd, map, width * height * sizeof(int));
 
     close(fd);
 }

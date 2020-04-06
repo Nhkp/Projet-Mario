@@ -98,8 +98,10 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
                 animation_missile_add(tmp, mario.x + 32, mario.y, mario.direction);
             k++;
         }
+
         for_all_objects(obj)
         {
+            printf("ok %d\n", obj->y);
             animate_func_t func = object_class[obj->type].animate_func;
             if (func != NULL)
                 func(obj);

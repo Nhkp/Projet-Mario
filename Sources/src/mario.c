@@ -14,7 +14,6 @@ void animation_mario_moves(dynamic_object_t *obj, int up, int down, int left, in
   //Vitesses de mouvement
   obj->xs = 4;
   obj->ys = 10;
- 
      //Saut
   static int jumping = 0; // No jumping = 0, Jumping = 1
   static int Y_velocity = 0;
