@@ -17,6 +17,7 @@ void graphics_render(void);
 void graphics_clean(void);
 void graphics_render_trees(SDL_Texture *tex, int factor);
 void animation_render_objects(void);
+void scrolling_screen(int x, int y, int factor);
 
 extern int x_screen;
 extern int y_screen;

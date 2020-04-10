@@ -101,7 +101,6 @@ void animation_one_step(int space, int up, int down, int left, int right, int ok
 
         for_all_objects(obj)
         {
-            printf("ok %d\n", obj->y);
             animate_func_t func = object_class[obj->type].animate_func;
             if (func != NULL)
                 func(obj);

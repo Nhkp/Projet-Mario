@@ -130,7 +130,7 @@ int main(int argc, char **argv)
           quit = 1;
           break;
         case SDLK_s:
-          save_map();
+          save_map(map_path ? map_path : NULL);
           break;
 
         default:;

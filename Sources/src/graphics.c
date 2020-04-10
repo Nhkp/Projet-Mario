@@ -109,19 +109,19 @@ void graphics_render_trees(SDL_Texture *tex, int factor)
   }
 }
 
-void scrolling_screen(int x, int y)
+void scrolling_screen(int x, int y, int factor)
 {
   x = x - x_screen;
   y = y - y_screen;
 
-  if (x /*- 4 */< SECURITY_LEFT)
-    x_screen = (x_screen - 4 < 0) ? 0 : x_screen - 4;
-  if (x + TILE/* + 1*/ > SECURITY_RIGHT)
-    x_screen = (x_screen + 4 > (MAP_WIDTH * TILE - WIN_WIDTH)) ? (MAP_WIDTH * TILE - WIN_WIDTH) : x_screen + 4;
-  if (y/* - 6*/ < SECURITY_TOP)
-    y_screen = (y_screen - 6 < 0) ? 0 : y_screen - 6;
-  if (y + 2 * TILE /*+ 1*/ > SECURITY_BOTTOM)
-    y_screen = (y_screen + 6 > (MAP_HEIGHT * TILE - WIN_HEIGHT)) ? (MAP_HEIGHT * TILE - WIN_HEIGHT) : y_screen + 6;
+  if (x < SECURITY_LEFT)
+    x_screen = (x_screen - 4 < 0) ? 0 : x_screen - 4*factor;
+  if (x + TILE > SECURITY_RIGHT)
+    x_screen = (x_screen + 4 > (MAP_WIDTH * TILE - WIN_WIDTH)) ? (MAP_WIDTH * TILE - WIN_WIDTH) : x_screen + 4*factor;
+  if (y < SECURITY_TOP)
+    y_screen = (y_screen - 6 < 0) ? 0 : (factor > 1)? y_screen - 4*factor: y_screen - 8;
+  if (y + 2 * TILE > SECURITY_BOTTOM)
+    y_screen = (y_screen + 6 > (MAP_HEIGHT * TILE - WIN_HEIGHT)) ? (MAP_HEIGHT * TILE - WIN_HEIGHT) : (factor > 1)? y_screen + 4*factor: y_screen + 8;
 }
 
 void graphics_render(void)
@@ -146,7 +146,10 @@ void graphics_render(void)
   // FIXME: We display the main character
   animation_render_objects();
 
-  scrolling_screen(mario.x, mario.y);
+  if(edition)
+    scrolling_screen(cursor.x, cursor.y, 16);
+  else
+    scrolling_screen(mario.x, mario.y, 1);
 
   interm = SDL_GetTicks();
 

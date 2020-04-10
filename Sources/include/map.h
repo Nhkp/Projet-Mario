@@ -21,7 +21,6 @@ void map_object_add(const char *path, int nb_sprites, int type, int type2, int n
 void map_display();
 void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int ok, int tabulation, int q);
 
-void save_map();
 int map_width();
 int map_height();
 int map_objects();
@@ -29,6 +28,7 @@ char* map_get_name(int i);
 int map_get_frames(int i);
 int map_get_type(int i);
 int map_get_type2(int i);
+void save_map(char *map_path);
 void load_map(char *map_path);
 
 #endif

@@ -197,38 +197,7 @@ void map_new(int width, int height)
 
     //Sol
     for (int i = 0; i < width; i++)
-    {
         map_set(2, i, MAP_HEIGHT - 1);
-    }
-
-    //fleurs
-    map_set(3, 9, 15);
-    map_set(4, 12, 15);
-
-    //blocs libres
-    map_set(1, 6, 14);
-    map_set(1, 4, 15);
-    map_set(1, 8, 13);
-
-    //escalier
-    map_set(1, 13, 12);
-    map_set(1, 14, 11);
-    map_set(1, 15, 10);
-
-    map_set(5, 18, 14);
-
-    //Peach
-    map_set(7, 48, 14);
-    map_set(8, 48, 15);
-
-    //TNT
-    map_set(6, 20, 14);
-
-    map_set(1, 20, 13);
-    map_set(1, 20, 15);
-    map_set(1, 21, 13);
-    map_set(1, 21, 14);
-    map_set(1, 21, 15);
 }
 
 void map_display()
@@ -282,40 +251,45 @@ void edit_mode(dynamic_object_t *obj, int up, int down, int left, int right, int
     if (q) edition = 0;
 
     //Sélection de la texture
-    if (tabulation) (obj->anim_next_step + 1 > 9)? obj->anim_next_step = 1 : obj->anim_next_step++;
+    if (tabulation) (obj->anim_next_step + 1 > 8)? obj->anim_next_step = 0 : obj->anim_next_step++;
 
     //Déplacement du curseur
-    if (up) y--;
-    if (down) y++;
-    if (left) x--;
-    if (right) x++;
-    if (x > MAP_WIDTH - 1 || x < 0) x = 0;
-    if (y > MAP_HEIGHT - 1 || y < 0) y = 0;
+    if (up && y > 0) y--;
+    if (down && y <= MAP_HEIGHT) y++;
+    if (left && x > 0) x--;
+    if (right && x <= MAP_WIDTH) x++;
     obj->x = x*TILE;
     obj->y = y*TILE;
 
     //Synchro sprite
+    cursor_sprite.tex = tab[obj->anim_next_step].tex;
     cursor_sprite.nb_img = tab[obj->anim_next_step].nb_sprites;
     if (cursor_sprite.nb_img > 1)
-        for (int i = 0; i < tab[obj->anim_next_step].nb_sprites; i++)
-            cursor_sprite.tab[i] = tab[obj->anim_next_step].tab[i];
-    else cursor_sprite.tex = tab[obj->anim_next_step].tex;
+        cursor_sprite.tab[5] = tab[obj->anim_next_step].tab[1];
 
     //Application de la texture
-    if(ok) map_set(obj->anim_next_step, x, y);
+    if (ok)
+        map_set(obj->anim_next_step, x, y);
 
     SDL_Delay(50);
 }
 
-void save_map(){
-    printf("save\n");
+void save_map(char *map_path){
+    write(1, "load\n", 6);
 
     u_int32_t buf;
-    int fd = creat("../maps/test", 0666);
+    char path[18] = {"../maps/"};
+    if (map_path == NULL)
+        strcat(path, "new_map");
+    else
+        strcat(path, map_path);
+
+    int fd = creat(path, 0666);
+    printf("%s\n", path);
 
     buf = map_width(); in;
     buf = map_height(); in;
-    buf = map_objects(); in;
+    //buf = map_objects(); in;
 
     write(fd, map, MAP_WIDTH * MAP_HEIGHT * sizeof(int));
 
@@ -328,12 +302,22 @@ void load_map(char *map_path){
     int buf, fd;
     char path[18] = {"../maps/"};
     strcat(path, map_path);
-    printf("%s\n", path);
+
     fd = open(path, O_RDONLY);
+    printf("%s\n", path);
 
     out; int width = buf;
     out; int height = buf;
-    out; int nb_items = buf;
+    //out; int nb_items = buf;
+
+    map_object_add("../images/wall.png", 1, 1, 6, 1);
+    map_object_add("../images/ground.png", 1, 1, 0, 2);
+    map_object_add("../images/flower.png", 1, 0, 6, 3);
+    map_object_add("../images/flower2.png", 1, 0, 6, 4);
+    map_object_add("../images/coin.png", 21, 5, 6, 5);
+    map_object_add("../images/tnt.png", 1, 7, 6, 6);
+    map_object_add("../images/peach1.png", 1, 7, 6, 7);
+    map_object_add("../images/peach2.png", 1, 7, 6, 8);
 
     read(fd, map, width * height * sizeof(int));
 
