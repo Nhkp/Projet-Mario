@@ -122,9 +122,27 @@ This project explore :
 <!-- USAGE EXAMPLES -->
 ## Usage
 
+### Launch
+
 ```sh
 ./mario --load demo_map
 ```
+
+### Controls
+
+* Left/Right arrows : Move to the left/right
+* Up arrow : Jump
+* X : Accelerate
+* Space : Laser shot
+* B : Put a bomb
+* V : Put a landmine
+* C : Activate the landmine
+* E : Enter edit mode 
+* Q : Quit edit mode
+* Tab : Shift between decor elements
+* Enter : Put a decor element
+* S : Save the map
+* Escape : Quit the game
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
