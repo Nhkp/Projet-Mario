@@ -1,8 +1,8 @@
 #ifndef CONSTANTS_IS_DEF
 #define CONSTANTS_IS_DEF
 
-#define WIN_WIDTH 1280
-#define WIN_HEIGHT 754
+#define WIN_WIDTH 1920
+#define WIN_HEIGHT 1020
 
 #define MAP_WIDTH 50
 #define MAP_HEIGHT 20
