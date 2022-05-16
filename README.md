@@ -56,7 +56,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![BattlefieldMario demo movie][demo_movie]]
 
 A 2D "Mario Maker". 
 
@@ -125,7 +125,7 @@ This project explore :
 ### Launch
 
 ```sh
-./mario --load demo_map
+./mario --load ../maps/demo_map
 ```
 
 ### Controls
@@ -163,4 +163,4 @@ Project Link: [https://github.com/Nhkp/Projet-Mario](https://github.com/Nhkp/Pro
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/cpalezis
-[product-screenshot]: images/screenshot.png
+[demo_movie]: demo.mp4
